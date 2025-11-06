@@ -1,0 +1,146 @@
+/* Title Gradient & Animation */
+.cinematic-title {
+  /* use the header palette for a unified look */
+  background: linear-gradient(90deg, #0077d9, #8b5cf6);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 0 28px rgba(59, 130, 246, 0.18);
+  animation: fadeIn 1.1s ease-out;
+  transition: all 0.32s ease;
+}
+
+.cinematic-title i {
+  font-size: 3rem;
+  background: linear-gradient(90deg, #00aaff, #8b5cf6);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 0 8px rgba(0, 170, 255, 0.12));
+  animation: fadeIn 1.4s ease-out;
+}
+
+/* Smooth Card & Image Effects */
+.movie-card {
+  border-radius: 1.25rem;
+  overflow: hidden;
+  transition: all 0.46s cubic-bezier(0.2, 0.9, 0.3, 1);
+}
+
+.movie-card:hover {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 0 18px 48px rgba(0, 122, 204, 0.14);
+}
+
+.movie-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.9s ease, filter 0.35s ease;
+  filter: brightness(0.88);
+}
+
+.movie-card .poster {
+  height: 16rem;
+}
+
+.movie-card:hover .movie-img {
+  transform: scale(1.06);
+  filter: brightness(1);
+}
+
+.remove-floating {
+  background: rgba(0, 0, 0, 0.45);
+  color: #fff;
+  border: none;
+}
+
+.remove-floating:hover {
+  background: rgba(200, 20, 20, 0.95);
+}
+
+.play-overlay {
+  left: 34%;
+  right: 34%;
+}
+
+/* Card body typography and spacing */
+.card-body {
+  padding: 1rem;
+}
+
+.card-title {
+  font-size: 1.05rem;
+}
+
+/* small refinements for buttons */
+.add-btn,
+.remove-btn {
+  font-size: 0.7rem;
+  padding: 0.22rem 0.6rem;
+}
+
+/* responsive tweaks */
+@media (max-width: 640px) {
+  .movie-card .poster {
+    height: 12rem;
+  }
+
+  .play-overlay {
+    left: 22%;
+    right: 22%;
+  }
+}
+
+/* Buttons */
+.add-btn,
+.remove-btn {
+  font-weight: 600;
+  transition: all 0.28s ease;
+  border: none;
+  border-radius: 0.9rem;
+  color: white;
+  box-shadow: 0 10px 28px rgba(0, 122, 204, 0.08);
+}
+
+.add-btn {
+  background: linear-gradient(90deg, #00aaff, #7c3aed);
+  padding: 12px 25px;
+}
+
+.add-btn:hover {
+  background: linear-gradient(90deg, #008fd6, #6f3adf);
+  transform: scale(1.03);
+}
+
+.remove-btn {
+  background: linear-gradient(90deg, #ef4444, #f97316);
+}
+
+.remove-btn:hover {
+  background: linear-gradient(90deg, #dc2626, #ea580c);
+  transform: scale(1.03);
+}
+
+/* Animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.bg-base-50 {
+  background-color: #0d141d
+}
+.sidebar {
+  position: sticky;
+  top: 6rem; /* نفس top-24 */
+  align-self: start; /* مهم جداً أحياناً في grid layout */
+}
+

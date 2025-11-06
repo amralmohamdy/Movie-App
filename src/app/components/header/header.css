@@ -1,0 +1,45 @@
+
+.navbar{
+  background-color: #0d141dd4;
+}
+.navbar-center .menu-horizontal > li > a {
+  position: relative;
+  padding-bottom: 0.5rem; 
+  transition: color 0.22s ease; 
+}
+
+.navbar-center .menu-horizontal > li > a::after {
+  content: '';
+  position: absolute;
+  left: 0.5rem; 
+  right: 0.5rem;
+  bottom: 0; 
+  width: 0; 
+  height: 3px;
+  
+  background: linear-gradient(90deg, #00428d,rgba(10, 148, 202, 0.801));
+  
+  border-radius: 6px;
+  
+
+  transition: width 0.28s cubic-bezier(.2,.9,.3,1);
+}
+
+
+.navbar-center .menu-horizontal > li > a:hover::after,
+.navbar-center .menu-horizontal > li > a:focus::after {
+  width: calc(100% - 1rem); 
+}
+
+.navbar-center .menu-horizontal > li > a.active {
+  color: white; 
+}
+
+.navbar-center .menu-horizontal > li > a.active::after {
+  width: calc(100% -1rem); 
+}
+.btn-header
+{
+  background-color: #006f9c;
+  border: 1px solid #006f9c;
+}
