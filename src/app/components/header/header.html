@@ -1,1 +1,45 @@
-<p>header works!</p>
+<nav class="navbar bg-base-100 shadow-md px-6">
+  <!-- Logo -->
+  <div class="flex-1">
+    <a class="text-xl font-bold text-primary tracking-wide">CleanPro</a>
+  </div>
+
+  <!-- Menu (Desktop) -->
+  <div class="hidden lg:flex">
+    <ul class="menu menu-horizontal px-1 text-lg font-medium">
+      <li><a routerLink="/home" class="hover:text-primary">Home</a></li>
+      <li>
+        <a routerLink="/watchlist" class="hover:text-primary flex items-center gap-1">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-error" fill="currentColor" viewBox="0 0 16 16">
+            <path d="M8 15s6-4.686 6-8A6 6 0 0 0 2 7c0 3.314 6 8 6 8z"/>
+          </svg>
+          Watchlist
+        </a>
+      </li>
+    </ul>
+  </div>
+
+  <!-- Auth Buttons (Desktop) -->
+  <div class="hidden lg:flex items-center gap-3">
+    <button class="btn btn-ghost" routerLink="/login">Login</button>
+    <button class="btn btn-primary" routerLink="/register">Register</button>
+  </div>
+
+  <!-- Dropdown (Mobile) -->
+  <div class="dropdown dropdown-end lg:hidden">
+    <div tabindex="0" role="button" class="btn btn-ghost">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
+        viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+          d="M4 6h16M4 12h16M4 18h16" />
+      </svg>
+    </div>
+    <ul tabindex="0"
+      class="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
+      <li><a routerLink="/home">Home</a></li>
+      <li><a routerLink="/watchlist">❤️ Watchlist</a></li>
+      <li><a routerLink="/login">Login</a></li>
+      <li><a routerLink="/register">Register</a></li>
+    </ul>
+  </div>
+</nav>
