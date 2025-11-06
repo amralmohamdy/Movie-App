@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="660" height="140" viewBox="0 0 660 140" role="img" aria-labelledby="title desc">
+  <title id="title">Filmscape</title>
+  <desc id="desc">Filmscape logo with gradient wordmark and subtle film lens emblem</desc>
+  <defs>
+    <linearGradient id="fsGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#002b5b"/>
+      <stop offset="50%" stop-color="#0077d9"/>
+      <stop offset="100%" stop-color="#8b5cf6"/>
+    </linearGradient>
+    <linearGradient id="lensGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#00aaff" stop-opacity="0.95"/>
+      <stop offset="100%" stop-color="#7c3aed" stop-opacity="0.95"/>
+    </linearGradient>
+  </defs>
+
+  <g transform="translate(18,18)">
+    <circle cx="50" cy="50" r="46" fill="none" stroke="url(#lensGrad)" stroke-width="8" />
+    <circle cx="50" cy="50" r="26" fill="rgba(0,0,0,0.14)" />
+    <circle cx="50" cy="50" r="14" fill="url(#fsGrad)" />
+    <g fill="#ffffff" opacity="0.08">
+      <circle cx="50" cy="14" r="5" />
+      <circle cx="86" cy="50" r="5" />
+      <circle cx="50" cy="86" r="5" />
+      <circle cx="14" cy="50" r="5" />
+    </g>
+  </g>
+
+  <text x="140" y="96" font-family="Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial" font-weight="700" font-size="72" fill="url(#fsGrad)">Filmscape</text>
+</svg>

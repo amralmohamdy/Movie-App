@@ -1,45 +1,52 @@
-<nav class="navbar bg-base-100 shadow-md px-6">
-  <!-- Logo -->
-  <div class="flex-1">
-    <a class="text-xl font-bold text-primary tracking-wide">CleanPro</a>
-  </div>
+<header class="navbar sticky top-0 z-50 bg-neutral/80 backdrop-blur-md shadow-lg px-4 md:px-6">
 
-  <!-- Menu (Desktop) -->
-  <div class="hidden lg:flex">
-    <ul class="menu menu-horizontal px-1 text-lg font-medium">
-      <li><a routerLink="/home" class="hover:text-primary">Home</a></li>
-      <li>
-        <a routerLink="/watchlist" class="hover:text-primary flex items-center gap-1">
-          <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-error" fill="currentColor" viewBox="0 0 16 16">
-            <path d="M8 15s6-4.686 6-8A6 6 0 0 0 2 7c0 3.314 6 8 6 8z"/>
-          </svg>
-          Watchlist
-        </a>
-      </li>
-    </ul>
-  </div>
-
-  <!-- Auth Buttons (Desktop) -->
-  <div class="hidden lg:flex items-center gap-3">
-    <button class="btn btn-ghost" routerLink="/login">Login</button>
-    <button class="btn btn-primary" routerLink="/register">Register</button>
-  </div>
-
-  <!-- Dropdown (Mobile) -->
-  <div class="dropdown dropdown-end lg:hidden">
-    <div tabindex="0" role="button" class="btn btn-ghost">
-      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
-        viewBox="0 0 24 24" stroke="currentColor">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-          d="M4 6h16M4 12h16M4 18h16" />
-      </svg>
+  <div class="navbar-start">
+    
+    <div class="dropdown">
+      <label tabindex="0" class="btn btn-ghost lg:hidden" aria-label="Open menu">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+      </label>
+      <ul tabindex="0" class="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
+        <li><a routerLink="" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Home</a></li>
+        <li><a routerLink="browse" routerLinkActive="active">Browse</a></li>
+        <li><a routerLink="genres" routerLinkActive="active">Genres</a></li>
+        <li><a routerLink="new" routerLinkActive="active">New Releases</a></li>
+        <li class="divider"></li>
+        <li><a routerLink="/login">Sign In</a></li>
+        <li><a routerLink="/register">Sign Up</a></li>
+      </ul>
     </div>
-    <ul tabindex="0"
-      class="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
-      <li><a routerLink="/home">Home</a></li>
-      <li><a routerLink="/watchlist">❤️ Watchlist</a></li>
-      <li><a routerLink="/login">Login</a></li>
-      <li><a routerLink="/register">Register</a></li>
-    </ul>
+
+    <a class="btn btn-ghost normal-case text-xl p-0 hover:bg-transparent focus:bg-transparent" routerLink="/" aria-label="Filmscape home">
+   <img src="filmscape.svg" alt="Filmscape Logo" class="h-8 w-auto" />
+    </a>
   </div>
-</nav>
+
+<div class="navbar-center hidden lg:flex">
+  <ul class="menu menu-horizontal px-1">
+    <li><a routerLink="" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Home</a></li>
+    <li><a routerLink="browse" routerLinkActive="active">Browse</a></li>
+    <li><a routerLink="genres" routerLinkActive="active">Genres</a></li>
+    <li><a routerLink="new" routerLinkActive="active">New Releases</a></li>
+  </ul>
+</div>
+
+  <div class="navbar-end space-x-1 md:space-x-2">
+    
+    <a class="btn btn-ghost normal-case" routerLink="login" aria-label="Search">
+      <img src="person.svg" alt="Search" class="h-5 w-5 cursor-pointer hover:opacity-80" aria-label="Search" />
+    </a>
+    
+
+    <a routerLink="watchlist" class="btn btn-ghost normal-case" aria-label="Watchlist">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7h18M5 7v10a2 2 0 002 2h10a2 2 0 002-2V7"/></svg>
+      
+      <span class="hidden md:inline ml-1">Watchlist</span>
+      
+      <div class="badge btn-header badge-sm ml-1">3</div>
+    </a>
+  </div>
+
+</header>

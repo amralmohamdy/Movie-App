@@ -1,1 +1,121 @@
-<p>watchlist works!</p>
+<div class="p-6 min-h-screen bg-base-200">
+  <!-- Header area for watchlist page -->
+  <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-6 mb-8">
+  <div class="p-6 bg-gray-100 rounded-lg">
+
+  <h1 class="cinematic-title text-4xl md:text-5xl font-extrabold flex items-center gap-3 text-blue-600 drop-shadow-md">
+    <i class="fa-solid fa-clapperboard text-3xl md:text-4xl text-blue-500"></i>
+    My Watchlist
+  </h1>
+
+  <p class="mt-2 text-sm text-gray-500 max-w-xl">Saved movies you want to watch later. Organize, play trailers, or remove items from your list.</p>
+
+</div>
+
+    <div class="flex items-center gap-3">
+      <div class="form-control">
+        <select class="select select-sm bg-base-100 border border-gray-700">
+          <option>Sort: Recently Added</option>
+          <option>Sort: Rating</option>
+          <option>Sort: Release Date</option>
+        </select>
+      </div>
+      <div class="hidden sm:flex items-center gap-2">
+        <button class="btn btn-ghost btn-sm">Filter</button>
+        <button class="btn btn-outline btn-sm">Export</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="grid grid-cols-1 lg:grid-cols-4 gap-6">
+    <!-- main column: cards -->
+    <main class="lg:col-span-3">
+      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+        <!-- Movie card (repeatable) -->
+        <article class="card movie-card bg-base-100 shadow-xl overflow-hidden relative">
+          <div class="poster relative">
+            <img src="https://m.media-amazon.com/images/I/81p+xe8cbnL._AC_SL1500_.jpg" alt="Inception" class="movie-img w-full h-64 object-cover" />
+            <button class="btn btn-circle btn-sm absolute top-3 right-3 remove-floating" aria-label="Remove">
+              <i class="fa-solid fa-heart-crack"></i>
+            </button>
+            <button class="play-overlay btn btn-primary btn-sm absolute inset-x-1/3 bottom-3 mx-auto">Play Trailer</button>
+          </div>
+          <div class="card-body">
+            <h3 class="card-title text-lg">Inception <span class="badge badge-ghost ml-2">2010</span></h3>
+            <p class="text-sm text-gray-400">Christopher Nolan • ⭐ 8.8</p>
+            <div class="card-actions justify-between mt-4">
+              <div class="flex gap-2">
+                <button class="btn btn-xs btn-outline">Details</button>
+                <button class="btn btn-xs add-btn">Save</button>
+              </div>
+              <div class="flex items-center gap-2">
+                <span class="text-sm text-[#00aaff] font-semibold">Watch</span>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- Movie card -->
+        <article class="card movie-card bg-base-50 shadow-xl overflow-hidden relative">
+          <div class="poster relative">
+            <img src="https://m.media-amazon.com/images/I/51EG732BV3L._AC_.jpg" alt="The Matrix" class="movie-img w-full h-64 object-cover" />
+            <button class="btn btn-circle btn-sm absolute top-3 right-3 remove-floating" aria-label="Remove">
+              <i class="fa-solid fa-heart-crack"></i>
+            </button>
+            <button class="play-overlay btn btn-primary btn-sm absolute inset-x-1/3 bottom-3 mx-auto">Play Trailer</button>
+          </div>
+          <div class="card-body">
+            <h3 class="card-title text-lg">The Matrix <span class="badge badge-ghost ml-2">1999</span></h3>
+            <p class="text-sm text-gray-400">Wachowski • ⭐ 8.7</p>
+            <div class="card-actions justify-between mt-4">
+              <div class="flex gap-2">
+                <button class="btn btn-xs btn-outline">Details</button>
+                <button class="btn btn-xs remove-btn">Remove</button>
+              </div>
+              <div class="flex items-center gap-2">
+                <span class="text-sm text-[#8b5cf6] font-semibold">Saved</span>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- Movie card -->
+        <article class="card movie-card bg-base-50 shadow-xl overflow-hidden relative">
+          <div class="poster relative">
+            <img src="https://m.media-amazon.com/images/I/91z3yGe9HsL._AC_SL1500_.jpg" alt="Interstellar" class="movie-img w-full h-64 object-cover" />
+            <button class="btn btn-circle btn-sm absolute top-3 right-3 remove-floating" aria-label="Remove">
+              <i class="fa-solid fa-heart-crack"></i>
+            </button>
+            <button class="play-overlay btn btn-primary btn-sm absolute inset-x-1/3 bottom-3 mx-auto">Play Trailer</button>
+          </div>
+          <div class="card-body">
+            <h3 class="card-title text-lg">Interstellar <span class="badge badge-ghost ml-2">2014</span></h3>
+            <p class="text-sm text-gray-400">Christopher Nolan • ⭐ 8.6</p>
+            <div class="card-actions justify-between mt-4">
+              <div class="flex gap-2">
+                <button class="btn btn-xs btn-outline">Details</button>
+                <button class="btn btn-xs add-btn">Save</button>
+              </div>
+              <div class="flex items-center gap-2">
+                <span class="text-sm text-[#00aaff] font-semibold">Watch</span>
+              </div>
+            </div>
+          </div>
+        </article>
+      </div>
+    </main>
+
+    <!-- sidebar (controls, stats) -->
+    <aside class="lg:col-span-1 p-4 bg-base-50 rounded-lg shadow-lg">
+      <div class="mb-4">
+        <h4 class="text-lg font-bold">Watchlist Summary</h4>
+        <p class="text-sm text-gray-400 mt-2">You have <strong>3</strong> items saved. Start watching or export your list.</p>
+      </div>
+      <div class="flex flex-col gap-3">
+        <button class="btn btn-primary">Play All Trailers</button>
+        <button class="btn btn-outline">Export List</button>
+        <button class="btn btn-ghost text-red-400">Clear Watchlist</button>
+      </div>
+    </aside>
+  </div>
+</div>
