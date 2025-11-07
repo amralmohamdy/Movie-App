@@ -1,0 +1,18 @@
+.hero {
+  background-attachment: fixed; /* 👈 ده السحر هنا */
+  background-size: cover;
+  background-position: center;
+  position: relative;
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.5),
+    rgba(0, 0, 0, 0.9)
+  );
+  z-index: 1;
+}

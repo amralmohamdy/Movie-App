@@ -1,1 +1,82 @@
-<p>homepage works!</p>
+<app-hero [searchTerm]="searchTerm" [dir]="svc.lang().slice(0,2) === 'ar' ? 'rtl' : 'ltr'" />
+@if(svc.movieResource.isLoading()) {
+<p>Loading...</p>
+}@if(svc.movieResource.error()) {
+<p>Error in getting data</p>
+<p>Error: {{ svc.movieResource.error()?.message }}</p>
+}@else {
+
+<!-- Movies Grid -->
+<div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-4 my-8 px-4" [dir]="svc.lang().slice(0,2) === 'ar' ? 'rtl' : 'ltr'">
+@for(movie of Movies(); track movie.id)
+{
+  <app-item [film]="movie"></app-item>
+}
+</div>
+
+<!-- Pagination Section -->
+<!-- Pagination Bar -->
+<div class="join flex justify-center mt-8">
+
+  <!-- زر Previous -->
+  <button
+    class="join-item btn"
+    [disabled]="svc.page() === 1"
+    (click)="changePage(svc.page() - 1)"
+  >
+    «
+  </button>
+
+  <!-- لو في صفحات قبل المجموعة الحالية -->
+  <button
+    *ngIf="visiblePages()[0] > 1"
+    class="join-item btn"
+    (click)="changePage(visiblePages()[0] - 1)"
+  >
+    …
+  </button>
+
+  <!-- الأزرار الخاصة بالمجموعة الحالية -->
+  <button
+    *ngFor="let page of visiblePages()"
+    (click)="changePage(page)"
+    class="join-item btn"
+    [ngClass]="{ 'btn-primary text-white': svc.page() === page }"
+  >
+    {{ page }}
+  </button>
+
+
+  <!-- <button
+  *ngFor="let page of visiblePages()"
+  (click)="changePage(page)"
+  class="join-item btn"
+  [ngClass]="{
+    'btn-primary text-white': svc.page() === page,
+    'btn-ghost': svc.page() !== page
+  }"
+>
+  {{ page }}
+</button> -->
+
+  <!-- لو في صفحات بعد المجموعة الحالية -->
+  <button
+    *ngIf="visiblePages()[visiblePages().length - 1] < totalPages()"
+    class="join-item btn"
+    (click)="changePage(visiblePages()[visiblePages().length - 1] + 1)"
+  >
+    …
+  </button>
+
+  <!-- زر Next -->
+  <button
+    class="join-item btn"
+    [disabled]="svc.page() === totalPages()"
+    (click)="changePage(svc.page() + 1)"
+  >
+    »
+  </button>
+</div>
+
+
+}

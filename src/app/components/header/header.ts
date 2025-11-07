@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { RouterLink, RouterLinkActive } from "@angular/router";
+import { MoviesResources } from '../../shared/movies-resources';
 
 @Component({
   selector: 'app-header',
@@ -17,6 +18,11 @@ export class Header {
   // simple toggle method (optional use) — template currently toggles via binding
   toggleMenu() {
     this.menuOpen = !this.menuOpen;
+  }
+
+  svc = inject(MoviesResources);
+  changeLanguage(lang: string) {
+    this.svc.lang.set(lang);
   }
 
 }
