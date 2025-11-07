@@ -1,1 +1,31 @@
-<p>hero works!</p>
+<!-- Hero Section -->
+<section
+  class="relative hero min-h-[70vh] flex items-center justify-center overflow-hidden text-white bg-fixed bg-center bg-cover"
+  style="background-image: url('https://image.tmdb.org/t/p/original/9Gtg2DzBhmYamXBS1hKAhiwbBKS.jpg');"
+>
+  <!-- Dark Overlay -->
+  <div class="absolute inset-0 bg-black-50 bg-opacity-70 backdrop-blur-sm"></div>
+
+  <!-- Content -->
+  <div class="relative text-center max-w-2xl px-4 z-10">
+    <h1 class="text-5xl font-bold mb-4">
+      Welcome To <span class="text-primary">CineWorld</span>
+    </h1>
+    <p class="text-gray-300 text-lg mb-6">
+      Discover the latest movies, explore top-rated films, and find what to watch next!
+    </p>
+
+    <!-- Search Bar -->
+    <div class="join w-full max-w-md mx-auto">
+      <input
+        type="text"
+        placeholder="Search for a movie..."
+        class="input input-bordered join-item w-full text-white placeholder-gray-400 bg-neutral"
+        [(ngModel)]="searchTerm"
+      />
+      <button class="btn btn-primary join-item text-white" (click)="onSearch()">
+        Search 🎥
+      </button>
+    </div>
+  </div>
+</section>
