@@ -1,1 +1,30 @@
-<p>details works!</p>
+@if (svc.movieDetails.isLoading()) {
+  <p>Loading movie details...</p>
+} 
+@else if (svc.movieDetails.error()) {
+  <p>Error loading movie details</p>
+}
+@else {
+  @let film = svc.movieDetails.value();
+
+  <div class="details-container p-6 bg-base-200 rounded-lg shadow-md">
+    <h2 class="text-2xl font-bold mb-4">{{ film?.title }}</h2>
+
+    <div class="flex flex-col md:flex-row gap-6">
+      <img
+        [src]="'https://image.tmdb.org/t/p/w500' + film?.poster_path"
+        alt="{{ film?.title }}"
+        class="w-full md:w-1/3 rounded-lg object-cover"
+      />
+
+      <div class="md:ml-6 flex-1">
+        <p class="mb-4"><strong>Release Date:</strong> {{ film?.release_date | date }}</p>
+        <p class="mb-4"><strong>Language:</strong> {{ film?.original_language | uppercase }}</p>
+        <p class="mb-4"><strong>Rating:</strong> ⭐ {{ film?.vote_average }}</p>
+
+        <h3 class="text-xl font-semibold mb-2">Overview</h3>
+        <p>{{ film?.overview }}</p>
+      </div>
+    </div>
+  </div>
+}
