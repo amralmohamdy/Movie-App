@@ -1,0 +1,16 @@
+<div class="min-h-screen flex items-center justify-center bg-base-200">
+  <div class="card w-96 bg-base-100 shadow-xl">
+    <div class="card-body text-center">
+      <h2 class="card-title justify-center mb-4">Account</h2>
+      <div *ngIf="auth.currentUser; else guest">
+        <p><strong>Email:</strong></p>
+        <p><strong>Username:</strong></p>
+        <button class="btn btn-error mt-4" >Logout</button>
+      </div>
+      <ng-template #guest>
+        <p>You are not logged in.</p>
+        <a routerLink="/auth/login" class="btn btn-primary mt-3">Login</a>
+      </ng-template>
+    </div>
+  </div>
+</div>
