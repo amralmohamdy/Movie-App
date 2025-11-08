@@ -1,1 +1,44 @@
-<p>login works!</p>
+<div class="min-h-screen flex items-center justify-center bg-base-200 p-4">
+	<div class="card w-full max-w-md bg-base-100 shadow-xl">
+		<div class="card-body">
+			<div class="flex items-center gap-3 mb-4">
+				<img src="filmscape.svg" alt="Filmscape" class="h-8 w-auto" />
+				<h2 class="text-2xl font-bold">Sign in to Filmscape</h2>
+			</div>
+			<form class="space-y-4" aria-label="Login form">
+				<div>
+					<label class="label">
+						<span class="label-text">Email</span>
+					</label>
+					<input type="email" placeholder="name@example.com" class="input input-bordered w-full" required required autocomplete="off"/>
+
+				</div>
+
+				<div>
+					<label class="label">
+						<span class="label-text">Password</span>
+					</label>
+					<input type="password" placeholder="Your password" class="input input-bordered w-full" autocomplete="new-password" /> 
+				</div>
+
+				<div class="flex items-center justify-between">
+					<label class="cursor-pointer label">
+						<input type="checkbox" class="checkbox checkbox-sm mr-2" />
+						<span class="label-text">Remember me</span>
+					</label>
+					<a class="link link-primary" routerLink="/forgot">Forgot?</a>
+				</div>
+
+				<div>
+					<button type="submit" class="btn btn-primary w-full">Sign In</button>
+				</div>
+			</form>
+
+			<div class="divider my-4">OR</div>
+
+			<div class="text-center">
+				<p class="text-sm">Don't have an account? <a routerLink="/register" class="link link-primary font-semibold">Sign up</a></p>
+			</div>
+		</div>
+	</div>
+</div>

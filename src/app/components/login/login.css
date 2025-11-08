@@ -1,0 +1,18 @@
+
+.card.movie-login {
+	max-width: 28rem;
+}
+
+.login-error {
+	color: #dc2626; 
+	font-size: 0.9rem;
+	margin-top: 0.25rem;
+}
+
+.card-body .logo-tight {
+	height: 2rem;
+}
+
+@media (max-width: 420px) {
+	.card.movie-login { padding: 0.75rem; }
+}
