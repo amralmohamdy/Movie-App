@@ -1,30 +1,86 @@
-@if (svc.movieDetails.isLoading()) {
-  <p>Loading movie details...</p>
-} 
-@else if (svc.movieDetails.error()) {
-  <p>Error loading movie details</p>
-}
-@else {
-  @let film = svc.movieDetails.value();
+<div class="page-container">
+  <ng-container *ngIf="loading">
+    <div class="loading">Loading movie details...</div>
+  </ng-container>
 
-  <div class="details-container p-6 bg-base-200 rounded-lg shadow-md">
-    <h2 class="text-2xl font-bold mb-4">{{ film?.title }}</h2>
+  <ng-container *ngIf="!loading && error">
+    <div class="error">Error: {{ error }}</div>
+  </ng-container>
 
-    <div class="flex flex-col md:flex-row gap-6">
-      <img
-        [src]="'https://image.tmdb.org/t/p/w500' + film?.poster_path"
-        alt="{{ film?.title }}"
-        class="w-full md:w-1/3 rounded-lg object-cover"
-      />
+  <ng-container *ngIf="!loading && film">
+    <div class="details-card">
+      <div class="left">
+        <img [src]="imageBase + film.poster_path" [alt]="film.title" class="poster" />
+      </div>
 
-      <div class="md:ml-6 flex-1">
-        <p class="mb-4"><strong>Release Date:</strong> {{ film?.release_date | date }}</p>
-        <p class="mb-4"><strong>Language:</strong> {{ film?.original_language | uppercase }}</p>
-        <p class="mb-4"><strong>Rating:</strong> ⭐ {{ film?.vote_average }}</p>
+      <!-- right side of the card rating and overview -->
+      <div class="right">
+        <div class="header-row">
+          <h1 class="title">{{ film.title }}</h1>
+          <div class="fav">♥</div>
+        </div>
 
-        <h3 class="text-xl font-semibold mb-2">Overview</h3>
-        <p>{{ film?.overview }}</p>
+        <div class="meta">
+          <span class="release">{{ film.release_date | date : 'mediumDate' }}</span>
+          <span class="dot">•</span>
+          <span class="rating">⭐ {{ film.vote_average }} ({{ film.vote_count }})</span>
+        </div>
+
+        <p class="overview">{{ film.overview }}</p>
+
+        <div class="genres">
+          <span class="genre" *ngFor="let g of film.genres">{{ $any(g).name }}</span>
+        </div>
+
+        <div class="extras">
+          <div><strong>Duration:</strong> {{ formatRuntime(film.runtime) }}</div>
+          <div>
+            <strong>Language:</strong>
+            {{ film.spoken_languages[0]?.name || (film.original_language | uppercase) }}
+          </div>
+
+          <div *ngIf="film.production_companies.length">
+            <strong>Production:</strong> {{ film.production_companies[0].name }}
+          </div>
+        </div>
+
+        <div class="buttons">
+          <a *ngIf="film.homepage" [href]="film.homepage" class="btn" target="_blank" rel="noopener"
+            >Website</a
+          >
+          <a
+            *ngIf="trailerKey"
+            [href]="'https://www.youtube.com/watch?v=' + trailerKey"
+            class="btn outline"
+            target="_blank"
+            rel="noopener"
+            >Watch Trailer</a
+          >
+        </div>
       </div>
     </div>
-  </div>
-}
+
+    <!-- Trailer embed (optional inline) -->
+    <!-- <div class="trailer" *ngIf="trailerKey">
+      <iframe
+        width="100%"
+        height="360"
+        [src]="'https://www.youtube.com/embed/' + trailerKey"
+        frameborder="0"
+        allowfullscreen
+      ></iframe>
+    </div> -->
+
+    <!-- Recommendations -->
+    <div class="recommendations" *ngIf="recommendations.length">
+      <h3>Recommendations</h3>
+      <div class="rec-row">
+        <a *ngFor="let r of recommendations" [routerLink]="['/movies', r.id]" class="rec-card">
+          <img [src]="imageBase + r.poster_path" [alt]="r.title" />
+          <div class="rec-title">{{ r.title }}</div>
+          <div class="rec-sub">{{ r.release_date | date : 'mediumDate' }}</div>
+        </a>
+      </div>
+    </div>
+  </ng-container>
+</div>
