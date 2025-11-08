@@ -1,10 +1,11 @@
 import { Component, Input, input } from '@angular/core';
 import { IMovie } from '../../../models/imovie';
 import { CommonModule } from '@angular/common';
+import { RouterLink } from "@angular/router";
 
 @Component({
   selector: 'app-item',
-  imports: [CommonModule],
+  imports: [CommonModule, RouterLink],
   templateUrl: './item.html',
   styleUrl: './item.css',
 })

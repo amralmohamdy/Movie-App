@@ -23,4 +23,19 @@ export class MoviesResources {
       return data as IMmdbModel;
     }
   });
+
+  id = signal(1);
+  
+  movieDetails = resource({
+    params: () => ({ id: this.id() }),
+    loader: async ({ params }) => {
+      const response = await fetch(`https://api.themoviedb.org/3/movie/${params.id}?api_key=157937b13bdcff4a5ba2df9a51fb2236&language=${this.lang()}`);
+      if (!response.ok) {
+        throw new Error('Failed to fetch movie details');
+      }
+
+      const data = await response.json();
+      return data as IMovie;
+    }
+  });
 }
