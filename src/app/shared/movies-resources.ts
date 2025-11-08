@@ -38,4 +38,19 @@ export class MoviesResources {
       return data as IMovie;
     }
   });
+
+   searchQuery = signal(''); 
+
+  searchMovies = resource({
+    params: () => ({ query: this.searchQuery(), language: this.lang() }),
+    loader: async ({ params }) => {
+      if (!params.query) return null; 
+      const response = await fetch(
+        `https://api.themoviedb.org/3/search/movie?api_key=157937b13bdcff4a5ba2df9a51fb2236&language=${params.language}&query=${params.query}`
+      );
+      if (!response.ok) throw new Error('Failed to search movies');
+      const data = await response.json();
+      return data as IMmdbModel;
+    },
+  });
 }

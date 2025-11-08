@@ -5,6 +5,7 @@ import { Login } from './components/login/login';
 import { Details } from './components/details/details';
 import { Register } from './components/register/register';
 import { NotFound } from './components/not-found/not-found';
+import { Search } from './components/search/search';
 
 export const routes: Routes = [
 
@@ -18,6 +19,7 @@ export const routes: Routes = [
 
     //Paramterized Route
     {path:'details/:id',component:Details, title:'Movie Details'},
+    {path:'search/:q',component:Search, title:'Movie Search'},
 
     //Wildcard Route - 404 Not Found
     {path:'**',component:NotFound, title:'404 | Not Found'},

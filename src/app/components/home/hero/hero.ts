@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { Router, RouterLink } from "@angular/router";
 
 @Component({
   selector: 'app-hero',
@@ -8,15 +9,17 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './hero.css',
 })
 export class Hero {
+
+
   @Input()
   searchTerm = '';
+constructor(private router: Router) {}
+  
 
   onSearch() {
     if (this.searchTerm.trim()) {
-      alert('🔍 Searching for: ' + this.searchTerm);
-      // هنا تقدر تستدعي السيرفس أو تعمل فلترة محلية
-      // مثلاً:
-      // this.svc.searchMovies(this.searchTerm);
+      // alert('🔍 Searching for: ' + this.searchTerm);
+        this.router.navigate(['/search', this.searchTerm]);
     }
   }
 

@@ -20,7 +20,7 @@
           </div>
           <div class="card-body">
             <h3 class="card-title text-lg">
-              {{ film.title }} <span class="badge badge-ghost ml-2">{{ film.release_date | date: 'yyyy' }}</span>
+              {{ film.title.slice(0,10) }}... <span class="badge badge-ghost ml-2">{{ film.release_date | date: 'yyyy' }}</span>
             </h3>
             <p class="text-sm text-gray-400">{{ film.original_language | uppercase }} • ⭐ {{ film.vote_average }}</p>
             <div class="card-actions justify-between mt-4">
