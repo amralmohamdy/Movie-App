@@ -1,0 +1,152 @@
+.page-container {
+  padding: 1.5rem;
+}
+
+.loading,
+.error {
+  padding: 1rem;
+  font-size: 1.1rem;
+}
+
+.details-card {
+  display: flex;
+  gap: 1.5rem;
+  background: #fff;
+  padding: 1.25rem;
+  border-radius: 12px;
+  box-shadow: 0 6px 18px rgba(15, 23, 42, 0.06);
+  align-items: flex-start;
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
+}
+
+.left .poster {
+  width: 300px;
+  border-radius: 12px;
+  object-fit: cover;
+}
+
+.right {
+  flex: 1;
+  min-width: 260px;
+}
+
+.header-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.title {
+  margin: 0;
+  font-size: 1.8rem;
+  font-weight: 700;
+}
+
+.fav {
+  font-size: 1.4rem;
+  color: #ff6b6b;
+}
+
+.meta {
+  color: #6b7280;
+  margin: 0.5rem 0;
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.overview {
+  margin-top: 0.5rem;
+  color: #374151;
+}
+
+.genres {
+  margin: 0.75rem 0;
+}
+
+.genre {
+  display: inline-block;
+  padding: 6px 10px;
+  margin-right: 8px;
+  background: #ffefcf;
+  border-radius: 20px;
+  font-size: 0.85rem;
+}
+
+.extras {
+  margin-top: 0.8rem;
+  color: #374151;
+  display: flex;
+  gap: 1.2rem;
+  flex-wrap: wrap;
+}
+
+.buttons {
+  margin-top: 1rem;
+  display: flex;
+  gap: 0.6rem;
+}
+
+.btn {
+  background: #000;
+  color: #fff;
+  padding: 8px 14px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.btn.outline {
+  background: transparent;
+  color: #000;
+  border: 1px solid #ddd;
+}
+
+.trailer {
+  margin-top: 1rem;
+  background: #000;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.page-container {
+  background-color: #fff;
+  min-height: 100vh;
+}
+
+/* Recommendations */
+.recommendations {
+  margin-top: 1.25rem;
+}
+
+.rec-row {
+  display: flex;
+  gap: 0.9rem;
+  overflow-x: auto;
+  padding: 0.75rem 0;
+}
+
+.rec-card {
+  min-width: 140px;
+  text-decoration: none;
+  color: inherit;
+}
+
+.rec-card img {
+  width: 140px;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.rec-title {
+  font-size: 0.9rem;
+  margin-top: 0.35rem;
+  font-weight: 600;
+}
+
+.rec-sub {
+  color: #6b7280;
+  font-size: 0.8rem;
+}
