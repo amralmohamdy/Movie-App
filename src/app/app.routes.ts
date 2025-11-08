@@ -11,7 +11,7 @@ export const routes: Routes = [
     //Default Route
     {path:'',component:Homepage},
 
-    //Nammed Routes
+    //Named Routes
     {path:'watchlist',component:Watchlist, title:'Watchlist'},
     {path:'login',component:Login, title:'Login'},
     {path:'register',component:Register, title:'Register'},
