@@ -1,5 +1,5 @@
 import { Injectable, resource, signal } from '@angular/core';
-import { IMovie } from '../models/imovie';
+import { IDetails } from '../models/idetails';
 import { IMmdbModel } from '../models/immdb-model';
 
 @Injectable({
@@ -35,7 +35,7 @@ export class MoviesResources {
       }
 
       const data = await response.json();
-      return data as IMovie;
+      return data as IDetails;
     }
   });
 

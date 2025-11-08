@@ -1,3 +1,41 @@
 
 <!-- src/app/components/register/register.html -->
-<p>register works!</p>
+
+<div class="min-h-screen flex items-center justify-center bg-base-200">
+  <div class="card w-96 bg-base-100 shadow-xl">
+    <div class="card-body">
+      <h2 class="card-title justify-center mb-2">Register</h2>
+
+      <div class="form-control mb-2">
+        <label class="label"><span class="label-text">Email</span></label>
+        <input type="email" [(ngModel)]="email" class="input input-bordered w-full" />
+      </div>
+
+      <div class="form-control mb-2">
+        <label class="label"><span class="label-text">Username</span></label>
+        <input type="text" [(ngModel)]="username" class="input input-bordered w-full" />
+      </div>
+
+      <div class="form-control mb-2">
+        <label class="label"><span class="label-text">Password</span></label>
+        <input type="password" [(ngModel)]="password" class="input input-bordered w-full" />
+      </div>
+
+      <div class="form-control mb-4">
+        <label class="label"><span class="label-text">Confirm Password</span></label>
+        <input type="password" [(ngModel)]="confirm" class="input input-bordered w-full" />
+      </div>
+
+      <p *ngIf="error" class="text-error mb-2 text-center">{{error}}</p>
+
+      <div class="card-actions justify-center">
+        <button class="btn btn-primary w-full">Register</button>
+      </div>
+
+      <p class="text-center mt-3">
+        Already have an account? 
+        <a routerLink="/login" class="link link-primary">Login</a>
+      </p>
+    </div>
+  </div>
+</div>
