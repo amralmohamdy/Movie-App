@@ -16,7 +16,7 @@ import { IDetails } from '../../models/idetails';
 })
 
 // details component class
-export class Details implements OnInit {
+export default class Details implements OnInit {
   private route = inject(ActivatedRoute);
   svc = inject(MoviesResources);
 

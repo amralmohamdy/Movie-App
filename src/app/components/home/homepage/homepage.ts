@@ -12,7 +12,7 @@ import { Item } from '../item/item';
   templateUrl: './homepage.html',
   styleUrl: './homepage.css',
 })
-export class Homepage {
+export default class Homepage {
 
   //inject movie resource service to get movies data using inject()
   searchTerm = '';

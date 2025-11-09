@@ -12,7 +12,7 @@ import { Hero } from "../home/hero/hero";
   templateUrl: './search.html',
   styleUrl: './search.css',
 })
-export class Search {
+export default class Search {
 
 
 constructor(

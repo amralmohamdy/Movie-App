@@ -8,7 +8,7 @@ import { FormsModule } from '@angular/forms';
   templateUrl: './register.html',
   styleUrl: './register.css',
 })
-export class Register {
+export default class Register {
   email = '';
   username = '';
   password = '';
