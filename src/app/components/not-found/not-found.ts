@@ -6,7 +6,7 @@ import { Router, RouterModule} from '@angular/router'
   templateUrl: './not-found.html',
   styleUrl: './not-found.css',
 })
-export class NotFound {
+export default class NotFound {
 
   constructor(private router: Router) {}
 

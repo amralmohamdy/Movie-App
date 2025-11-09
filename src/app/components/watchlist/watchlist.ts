@@ -6,6 +6,6 @@ import { Component } from '@angular/core';
   templateUrl: './watchlist.html',
   styleUrl: './watchlist.css',
 })
-export class Watchlist {
+export default class Watchlist {
 
 }

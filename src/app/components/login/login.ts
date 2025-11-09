@@ -9,7 +9,7 @@ import { Router, RouterLink } from '@angular/router';
   templateUrl: './login.html',
   styleUrl: './login.css',
 })
-export class Login {
+export default class Login {
   email = '';
   password = '';
   submitting = false;
