@@ -22,9 +22,10 @@
         placeholder="Search for a movie..."
         class="input input-bordered join-item w-full text-white placeholder-gray-400 bg-neutral"
         [(ngModel)]="searchTerm"
+        (keyup.enter)="onSearch()"
       />
       <button class="btn btn-primary join-item text-white" (click)="onSearch()">
-        Search 🎥
+        Search
       </button>
     </div>
   </div>

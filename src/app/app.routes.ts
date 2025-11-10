@@ -11,8 +11,8 @@ export const routes: Routes = [
     { path: 'register', loadComponent: () => import('./components/register/register'), title: 'Register' },
 
     //Paramterized Route
-    { path: 'details/:id', loadComponent: () => import('./components/details/details'), title: 'Movie Details' },
-    { path: 'search/:q', loadComponent: () => import('./components/search/search'), title: 'Movie Search' },
+    { path: 'movies/:id', loadComponent: () => import('./components/details/details'), title: 'Movie Details' },
+    { path: 'search', loadComponent: () => import('./components/search/search'), title: 'Movie Search' },
     //Wildcard Route - 404 Not Found
     { path: '**', loadComponent: () => import('./components/not-found/not-found'), title: '404 | Not Found' },
 ];

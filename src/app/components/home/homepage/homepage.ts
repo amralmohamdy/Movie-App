@@ -1,25 +1,20 @@
-import { httpResource } from '@angular/common/http';
-import { Component, computed, effect, inject, OnInit, signal } from '@angular/core';
+import { Component, computed, inject } from '@angular/core';
 import { MoviesResources } from '../../../shared/movies-resources';
 import { CommonModule } from '@angular/common';
-import { IMovie } from '../../../models/imovie';
 import { Hero } from '../hero/hero';
 import { Item } from '../item/item';
+import { Skeleton } from '../../skeleton/skeleton';
 
 @Component({
   selector: 'app-homepage',
-  imports: [CommonModule, Hero,Item],
+  imports: [CommonModule, Hero,Item, Skeleton],
   templateUrl: './homepage.html',
   styleUrl: './homepage.css',
 })
 export default class Homepage {
-
-  //inject movie resource service to get movies data using inject()
-  searchTerm = '';
-
   svc = inject(MoviesResources);
+  searchTerm = '';
   
-
   // 🧠 هنا نستخدم computed علشان ناخد فقط الـ results من القيمة الكاملة
   Movies = computed(() => this.svc.movieResource.value()?.results ?? []);
   totalPages = computed(() => this.svc.movieResource.value()?.total_pages ?? 1);
