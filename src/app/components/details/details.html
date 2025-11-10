@@ -1,86 +1,101 @@
-<div class="page-container">
-  <ng-container *ngIf="loading">
-    <div class="loading">Loading movie details...</div>
-  </ng-container>
-
-  <ng-container *ngIf="!loading && error">
-    <div class="error">Error: {{ error }}</div>
-  </ng-container>
-
-  <ng-container *ngIf="!loading && film">
-    <div class="details-card">
-      <div class="left">
-        <img [src]="imageBase + film.poster_path" [alt]="film.title" class="poster" />
-      </div>
-
-      <!-- right side of the card rating and overview -->
-      <div class="right">
-        <div class="header-row">
-          <h1 class="title">{{ film.title }}</h1>
-          <div class="fav">♥</div>
-        </div>
-
-        <div class="meta">
-          <span class="release">{{ film.release_date | date : 'mediumDate' }}</span>
-          <span class="dot">•</span>
-          <span class="rating">⭐ {{ film.vote_average }} ({{ film.vote_count }})</span>
-        </div>
-
-        <p class="overview">{{ film.overview }}</p>
-
-        <div class="genres">
-          <span class="genre" *ngFor="let g of film.genres">{{ $any(g).name }}</span>
-        </div>
-
-        <div class="extras">
-          <div><strong>Duration:</strong> {{ formatRuntime(film.runtime) }}</div>
-          <div>
-            <strong>Language:</strong>
-            {{ film.spoken_languages[0]?.name || (film.original_language | uppercase) }}
-          </div>
-
-          <div *ngIf="film.production_companies.length">
-            <strong>Production:</strong> {{ film.production_companies[0].name }}
-          </div>
-        </div>
-
-        <div class="buttons">
-          <a *ngIf="film.homepage" [href]="film.homepage" class="btn" target="_blank" rel="noopener"
-            >Website</a
-          >
-          <a
-            *ngIf="trailerKey"
-            [href]="'https://www.youtube.com/watch?v=' + trailerKey"
-            class="btn outline"
-            target="_blank"
-            rel="noopener"
-            >Watch Trailer</a
-          >
-        </div>
-      </div>
+<div class="page-container p-4 md:p-8">
+  @if (isLoadingAll) {
+  <app-skeleton type="details" />
+  } @else if (hasError) {
+  <div class="error text-error text-lg text-center mt-8">❌ Error: {{ hasError.message }}</div>
+  } @else if (film) {
+  <div class="details-card flex flex-col md:flex-row gap-6">
+    <div class="left">
+      <img
+        [src]="imageBase + film.poster_path"
+        [alt]="film.title"
+        class="poster rounded-xl shadow-lg"
+      />
     </div>
 
-    <!-- Trailer embed (optional inline) -->
-    <!-- <div class="trailer" *ngIf="trailerKey">
-      <iframe
-        width="100%"
-        height="360"
-        [src]="'https://www.youtube.com/embed/' + trailerKey"
-        frameborder="0"
-        allowfullscreen
-      ></iframe>
-    </div> -->
+    <div class="right flex-1">
+      <div class="header-row flex justify-between items-center">
+        <h1 class="title text-3xl font-bold">{{ film.title }}</h1>
+        <div class="fav text-2xl text-error cursor-pointer">♥</div>
+      </div>
 
-    <!-- Recommendations -->
-    <div class="recommendations" *ngIf="recommendations.length">
-      <h3>Recommendations</h3>
-      <div class="rec-row">
-        <a *ngFor="let r of recommendations" [routerLink]="['/movies', r.id]" class="rec-card">
-          <img [src]="imageBase + r.poster_path" [alt]="r.title" />
-          <div class="rec-title">{{ r.title }}</div>
-          <div class="rec-sub">{{ r.release_date | date : 'mediumDate' }}</div>
-        </a>
+      <div class="meta text-sm opacity-80 mt-2">
+        <span class="release">{{ film.release_date | date : 'mediumDate' }}</span>
+        <span class="dot px-2">•</span>
+        <span class="rating">⭐ {{ film.vote_average }} ({{ film.vote_count }})</span>
+      </div>
+
+      <p class="overview mt-4 leading-relaxed">{{ film.overview }}</p>
+
+      <div class="genres flex flex-wrap gap-2 mt-3">
+        @for (g of film.genres; track $index) {
+        <span class="badge badge-outline">{{ $any(g).name }}</span>
+        }
+      </div>
+
+      <div class="extras mt-5 space-y-2">
+        <div><strong>Duration:</strong> {{ formatRuntime(film.runtime) }}</div>
+        <div>
+          <strong>Language:</strong>
+          {{ film.spoken_languages[0]?.name || (film.original_language | uppercase) }}
+        </div>
+
+        @if (film.production_companies.length > 0) {
+        <div><strong>Production:</strong> {{ film.production_companies[0].name }}</div>
+        }
+      </div>
+
+      <div class="buttons flex gap-3 mt-6">
+        @if (film.homepage) {
+        <a [href]="film.homepage" class="btn btn-primary" target="_blank" rel="noopener">Website</a>
+        } @if (trailerKey) {
+        <a          
+          class="btn btn-outline"
+          target="_blank"
+          rel="noopener"
+          (click)="openModal(trailerKey); $event.preventDefault(); trailerModal.showModal();"
+          >▶ Play Trailer</a
+        >
+
+        <!-- 🎬 Trailer Modal -->
+        <dialog #trailerModal class="modal" (click)="closeModal()">
+          <div class="modal-box max-w-3xl bg-base-200">
+            <form method="dialog">
+              <button class="btn btn-sm btn-circle btn-ghost absolute right-3 top-3" (click)="closeModal()">✕</button>
+            </form>
+            <div class="aspect-video mt-4 rounded-xl overflow-hidden">
+              <iframe
+                width="100%"
+                height="100%"
+                [src]="youtubeUrl | safe"
+                frameborder="0"
+                allow="autoplay; encrypted-media"
+                allowfullscreen
+              ></iframe>
+            </div>
+          </div>
+        </dialog>
+        }
       </div>
     </div>
-  </ng-container>
+  </div>
+
+  @if (recommendations.length > 0) {
+  <div class="recommendations mt-10">
+    <h3 class="text-xl font-semibold mb-3">Recommendations</h3>
+    <div class="rec-row grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-4">
+      @for (r of recommendations; track r.id) {
+      <a [routerLink]="['/movies', r.id]" class="rec-card block hover:opacity-80 transition">
+        <img [src]="imageBase + r.poster_path" [alt]="r.title" class="rounded-lg shadow-md" />
+        <div class="rec-title mt-2 text-sm font-medium">
+          {{ r.title.slice(0, 15) }}....
+        </div>
+        <div class="rec-sub text-xs opacity-75">
+          {{ r.release_date | date : 'mediumDate' }}
+        </div>
+      </a>
+      }
+    </div>
+  </div>
+  } }
 </div>

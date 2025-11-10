@@ -1,6 +1,9 @@
 <app-hero [searchTerm]="searchTerm" [dir]="svc.lang().slice(0,2) === 'ar' ? 'rtl' : 'ltr'" />
 @if(svc.movieResource.isLoading()) {
-<p>Loading...</p>
+
+<app-skeleton type="list" />
+
+
 }@if(svc.movieResource.error()) {
 <p>Error in getting data</p>
 <p>Error: {{ svc.movieResource.error()?.message }}</p>

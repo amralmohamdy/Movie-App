@@ -12,11 +12,6 @@
             >
               <i class="fa-solid fa-heart-crack"></i>
             </button>
-            <button routerLink="details/{{film.id}}"
-              class="play-overlay btn btn-primary btn-sm absolute inset-x-1/3 bottom-3 mx-auto"
-            >
-              Play Trailer
-            </button>
           </div>
           <div class="card-body">
             <h3 class="card-title text-lg">
@@ -25,8 +20,7 @@
             <p class="text-sm text-gray-400">{{ film.original_language | uppercase }} • ⭐ {{ film.vote_average }}</p>
             <div class="card-actions justify-between mt-4">
               <div class="flex gap-2">
-                <button class="btn btn-xs btn-outline">Details</button>
-                <button class="btn btn-xs remove-btn">Remove</button>
+                <button class="btn btn-primary btn-sm absolute  bottom-3" routerLink="/movies/{{film.id}}">Details</button>
               </div>
               <div class="flex items-center gap-2">
                 <span class="text-sm text-[#8b5cf6] font-semibold">Saved</span>

@@ -24,8 +24,11 @@ export class MoviesResources {
     }
   });
 
+
+  // Movie Details Resource
+
   id = signal(1);
-  
+
   movieDetails = resource({
     params: () => ({ id: this.id() }),
     loader: async ({ params }) => {
@@ -39,14 +42,43 @@ export class MoviesResources {
     }
   });
 
-   searchQuery = signal(''); 
+  movieTrailer = resource({
+    params: () => ({ id: this.id() }),
+    loader: async ({ params }) => {
+      const response = await fetch(`https://api.themoviedb.org/3/movie/${params.id}/videos?api_key=157937b13bdcff4a5ba2df9a51fb2236&language=${this.lang()}`);
+      if (!response.ok) {
+        throw new Error('Failed to fetch movie trailers');
+      }
+
+      const data = await response.json();
+      return data;
+    }
+  });
+  movieRecommendations = resource({
+    params: () => ({ id: this.id(), language: this.lang() }),
+    loader: async ({ params }) => {
+      const response = await fetch(
+        `https://api.themoviedb.org/3/movie/${params.id}/recommendations?api_key=157937b13bdcff4a5ba2df9a51fb2236&with_genres=16,10751&include_adult=false&language=${params.language}&page=1`
+      );
+      if (!response.ok) {
+        throw new Error('Failed to fetch movie recommendations');
+      }
+      const data = await response.json();
+      return data as IMmdbModel;
+    }
+  });
+
+
+  // Search Movies Resource
+  pageSearch = signal(1);
+  searchQuery = signal('');
 
   searchMovies = resource({
-    params: () => ({ query: this.searchQuery(), language: this.lang() }),
+    params: () => ({ query: this.searchQuery(), language: this.lang(), page: this.pageSearch() }),
     loader: async ({ params }) => {
-      if (!params.query) return null; 
+      if (!params.query) return null;
       const response = await fetch(
-        `https://api.themoviedb.org/3/search/movie?api_key=157937b13bdcff4a5ba2df9a51fb2236&language=${params.language}&query=${params.query}`
+        `https://api.themoviedb.org/3/search/movie?api_key=157937b13bdcff4a5ba2df9a51fb2236&language=${params.language}&query=${params.query}&page=${params.page}`
       );
       if (!response.ok) throw new Error('Failed to search movies');
       const data = await response.json();
