@@ -14,7 +14,7 @@ import { IMovie } from '../../models/imovie';
   styleUrls: ['./browse.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class BrowseComponent implements OnInit {
+export default class BrowseComponent implements OnInit {
   private readonly TMDB_API_KEY = '157937b13bdcff4a5ba2df9a51fb2236';
   readonly IMAGE_BASE = 'https://image.tmdb.org/t/p/w300';
 

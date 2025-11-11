@@ -1,18 +1,34 @@
-
-.card.movie-login {
-	max-width: 28rem;
+.my-title {
+    background: var(--hover-color);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: transparent;
 }
 
-.login-error {
-	color: #dc2626; 
-	font-size: 0.9rem;
-	margin-top: 0.25rem;
+
+.my-btn {
+    background: var(--hover-color);
+    border: var(--hover-color);
+    color: var(--white-color);
 }
 
-.card-body .logo-tight {
-	height: 2rem;
+.my-btn:hover:not(:disabled) {
+    background: var(--primary-color);
+    border: 1px solid var(--primary-color);
 }
 
-@media (max-width: 420px) {
-	.card.movie-login { padding: 0.75rem; }
+.my-btn:disabled {
+    background: var(--hover-color);
+    border: 1px solid var(--hover-color);
+    color: var(--white-color);
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+
+.my-checkbox:checked {
+    background: var(--hover-color);
+    border: var(--hover-color);
+    color: var(--white-color);
 }

@@ -12,7 +12,7 @@ import { IMovie } from '../../models/imovie';
   styleUrls: ['./new-releases.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class NewReleasesComponent implements OnInit {
+export default class NewReleasesComponent implements OnInit {
   private readonly TMDB_API_KEY = '157937b13bdcff4a5ba2df9a51fb2236';
   
   movies = signal<IMovie[]>([]);

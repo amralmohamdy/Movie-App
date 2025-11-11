@@ -1,19 +1,43 @@
-import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, inject, computed, effect } from '@angular/core';
+import { Router } from '@angular/router';
+import { AuthService } from '../../services/auth-service';
+import { WishlistResourceService } from '../../shared/wishlist-resource-service';
 
 @Component({
   selector: 'app-account',
-  imports: [CommonModule],
   templateUrl: './account.html',
-  styleUrl: './account.css',
+  imports: [],
+  styleUrls: ['./account.css'],
+  standalone: true,
 })
-export class Account {
-  auth : null | { email: string; username: string, currentUser: boolean } = null;
+export default class AccountComponent {
+  private router = inject(Router);
+  public wishlistSvc = inject(WishlistResourceService);
+  constructor(public authSvc: AuthService) {
+    effect(() => {
+      if (!this.currentUser()) {
+        this.router.navigate(['/login']);
+      }
+    });
 
-  ngOnInit() {
-    const storedAuth = localStorage.getItem('auth');
-    if (storedAuth) {
-      this.auth = JSON.parse(storedAuth);
-    }
+  }
+
+  currentUser = computed(() => this.authSvc.currentUser);
+
+  wishlistCount = computed(() => this.wishlistSvc.wishlistCount());
+
+  logout() {
+    this.authSvc.logout().then(() => {
+      this.router.navigate(['/login']);
+    });
+  }
+
+  changePassword() {
+    const newPassword = prompt('Enter your new password:');
+    if (!newPassword) return;
+
+    this.authSvc.changePassword(newPassword)
+      .then(() => alert('Password updated successfully!'))
+      .catch(err => alert('Error: ' + err.message));
   }
 }

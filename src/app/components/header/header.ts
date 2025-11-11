@@ -1,9 +1,10 @@
 import { Component, computed, effect, inject } from '@angular/core';
-import { RouterLink, RouterLinkActive } from "@angular/router";
+import { Router, RouterLink, RouterLinkActive } from "@angular/router";
 import { MoviesResources } from '../../shared/movies-resources';
 import { CommonModule } from '@angular/common';
 import { Theme } from '../../shared/theme';
 import { WishlistResourceService } from '../../shared/wishlist-resource-service';
+import { AuthService } from '../../services/auth-service';
 
 @Component({
   selector: 'app-header',
@@ -12,7 +13,9 @@ import { WishlistResourceService } from '../../shared/wishlist-resource-service'
   styleUrl: './header.css',
 })
 export class Header {
+  auth = inject(AuthService);
   svc = inject(MoviesResources);
+  router = inject(Router);
   private theme = inject(Theme);
   wishlistResource = inject(WishlistResourceService);
   wishlistCount = computed(() => this.wishlistResource.wishlistCount());
@@ -59,4 +62,17 @@ export class Header {
   get isDarkMode() {
     return this.theme.theme() === 'dark';
   }
+
+  toggleDropdown: boolean = false;
+
+
+
+  logout() {
+    alert('loggedout');
+    this.auth.logout().then(() => {
+      this.router.navigate(['/login']);
+      
+    });
+  }
+
 }
