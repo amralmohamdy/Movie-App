@@ -1,7 +1,8 @@
-import { Component, Input, input } from '@angular/core';
+import { Component, inject, Input, input } from '@angular/core';
 import { IMovie } from '../../../models/imovie';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from "@angular/router";
+import { WishlistService } from '../../../services/wishlist-service';
 
 @Component({
   selector: 'app-item',
@@ -10,6 +11,8 @@ import { RouterLink } from "@angular/router";
   styleUrl: './item.css',
 })
 export class Item {
+  
+  public wishlistService = inject(WishlistService);
   @Input()
   film: IMovie = {
     adult: false,
@@ -27,5 +30,6 @@ export class Item {
     vote_average: 0,
     vote_count: 0,
   };
+
 
 }
