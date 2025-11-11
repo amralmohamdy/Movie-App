@@ -9,6 +9,7 @@
             <button
               class="btn btn-circle btn-sm absolute top-3 right-3 remove-floating"
               aria-label="Remove"
+              (click)="wishlistService.addToWishlist(film)"
             >
               <i class="fa-solid fa-heart-crack"></i>
             </button>
