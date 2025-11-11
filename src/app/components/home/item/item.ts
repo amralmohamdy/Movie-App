@@ -1,8 +1,8 @@
-import { Component, inject, Input, input } from '@angular/core';
+import { Component, computed, inject, Input, input } from '@angular/core';
 import { IMovie } from '../../../models/imovie';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from "@angular/router";
-import { WishlistService } from '../../../services/wishlist-service';
+import { WishlistResourceService } from '../../../shared/wishlist-resource-service';
 
 @Component({
   selector: 'app-item',
@@ -11,8 +11,8 @@ import { WishlistService } from '../../../services/wishlist-service';
   styleUrl: './item.css',
 })
 export class Item {
-  
-  public wishlistService = inject(WishlistService);
+
+  WishlistResourceSvc = inject(WishlistResourceService);
 
   @Input()
   film: IMovie = {
@@ -33,4 +33,17 @@ export class Item {
   };
 
 
+  isInWishlist = computed(() => {
+    return this.WishlistResourceSvc.wishlistIds().includes(this.film.id);
+  });
+
+  async toggleWishlist() {
+    if (this.isInWishlist()) {
+      // لو موجود: نحذفه
+      await this.WishlistResourceSvc.removeItem(this.film.id);
+    } else {
+      // لو مش موجود: نضيفه
+      await this.WishlistResourceSvc.addItem(this.film.id);
+    }
+  }
 }

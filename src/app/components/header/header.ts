@@ -1,8 +1,9 @@
-import { Component, effect, inject } from '@angular/core';
+import { Component, computed, effect, inject } from '@angular/core';
 import { RouterLink, RouterLinkActive } from "@angular/router";
 import { MoviesResources } from '../../shared/movies-resources';
 import { CommonModule } from '@angular/common';
 import { Theme } from '../../shared/theme';
+import { WishlistResourceService } from '../../shared/wishlist-resource-service';
 
 @Component({
   selector: 'app-header',
@@ -13,9 +14,12 @@ import { Theme } from '../../shared/theme';
 export class Header {
   svc = inject(MoviesResources);
   private theme = inject(Theme);
+  wishlistResource = inject(WishlistResourceService);
+  wishlistCount = computed(() => this.wishlistResource.wishlistCount());
 
-  menuOpen : boolean = false;
-  watchlistCount : number = 3;
+
+  menuOpen: boolean = false;
+  watchlistCount: number = 3;
 
   constructor() {
     effect(() => {
@@ -31,7 +35,7 @@ export class Header {
       case 'ar': return 'https://flagcdn.com/w20/eg.png';
       case 'en': return 'https://flagcdn.com/w20/us.png';
       case 'fr': return 'https://flagcdn.com/w20/fr.png';
-      default:   return 'earth-white.png';
+      default: return 'earth-white.png';
     }
   }
 

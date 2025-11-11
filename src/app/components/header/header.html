@@ -140,25 +140,29 @@
     </a>
 
     <!-- WaishList -->
-    <a
-      routerLink="wishlist"
-      class="btn btn-ghost relative hover:bg-base-200 hidden lg:flex"
-      aria-label="wishlist"
-    >
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        class="h-5 w-5"
-        fill="none"
-        stroke="currentColor"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-        viewBox="0 0 24 24"
-      >
-        <path d="M3 7h18M5 7v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7" />
-      </svg>
-      <span class="hidden md:inline ml-1">Wishlist</span>
-      <div class="badge badge-sm bg-primary text-white absolute -top-2 -right-2">3</div>
-    </a>
+   <a
+  routerLink="wishlist"
+  class="btn btn-ghost relative hover:bg-base-200 hidden lg:flex"
+  aria-label="wishlist"
+>
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    class="h-5 w-5"
+    fill="none"
+    stroke="currentColor"
+    stroke-width="2"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    viewBox="0 0 24 24"
+  >
+    <path d="M3 7h18M5 7v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7" />
+  </svg>
+  <span class="hidden md:inline ml-1">Wishlist</span>
+  <!-- Badge ديناميكي -->
+  <div class="badge badge-sm bg-primary text-white absolute -top-2 -right-2">
+    {{ wishlistCount() }}
+  </div>
+</a>
+
   </div>
 </header>

@@ -1,25 +1,28 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, computed, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { WishlistService } from '../../services/wishlist-service';
 import { AuthService } from '../../services/auth-service';
 import { Router } from '@angular/router';
+import { Item } from '../home/item/item';
+import { WishlistResourceService } from '../../shared/wishlist-resource-service';
 
 @Component({
   selector: 'app-wishlist',
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, Item],
   templateUrl: './wishlist.html',
   styleUrl: './wishlist.css',
 })
 export default class Wishlist implements OnInit {
-  wishlist: any[] = [];
-  newItem = '';
-
+  newItem: number = 0;
+  wishlistMovies = computed(() => this.wishlistResource.wishlistMoviesResource.value() ?? []);
+  showSnackbar = signal(false);
+  deleting = signal(false);
+  progress = signal(0);
   constructor(
-    private wishlistService: WishlistService,
+    private wishlistResource: WishlistResourceService,
     private auth: AuthService,
     private router: Router
-  ) {}
+  ) { }
 
   ngOnInit() {
     if (!this.auth.currentUser) {
@@ -27,46 +30,63 @@ export default class Wishlist implements OnInit {
       return;
     }
 
-    this.loadWishlist();
+    // تحميل أولي للـ wishlist
+    this.wishlistResource.wishlistIdsResource.reload();
   }
 
-  private loadWishlist() {
-    this.wishlistService.getWishlist().subscribe({
-      next: (items) => {
-        console.log('Wishlist loaded:', items);
-        this.wishlist = items;
-      },
-      error: (err) => {
-        console.error('Error loading wishlist:', err);
-      }
-    });
-  }
-
+  /** Add item manually (optional) */
   async addItem() {
-    if (!this.newItem.trim()) return;
+    if (this.newItem === 0) return;
     try {
-      await this.wishlistService.addToWishlist({ name: this.newItem });
-      console.log('Item added successfully');
-      this.newItem = '';
-      this.loadWishlist();
+      await this.wishlistResource.wishlistIdsResource.reload(); // reload IDs first
+      await this.wishlistResource.refresh();
+      this.newItem = 0;
     } catch (err) {
       console.error('Error adding item:', err);
     }
   }
 
-  async removeItem(id: string) {
+  /** Remove item from wishlist */
+  async removeItem(id: number) {
     try {
-      console.log('Removing item with id:', id);
-      await this.wishlistService.removeFromWishlist(id);
-      console.log('Item removed successfully');
-      this.loadWishlist();
+      await this.wishlistResource.wishlistIdsResource.reload(); // reload IDs first
+      await this.wishlistResource.refresh();
     } catch (err) {
       console.error('Error removing item:', err);
     }
   }
 
-  logout() {
-    this.auth.logout();
-    this.router.navigate(['/login']);
+  async confirmClear() {
+    const movieIds = this.wishlistMovies().map((m) => m.id);
+    if (!movieIds.length) return;
+
+    this.deleting.set(true); // show loading
+    this.progress.set(0);
+
+    const increment = 100 / movieIds.length;
+
+    try {
+      for (const id of movieIds) {
+        await this.wishlistResource.wishlistSvc.removeFromWishlist(id);
+        // تقدّم progress تدريجي
+        this.progress.update((p) => Math.min(p + increment, 100));
+      }
+
+      await this.wishlistResource.refresh();
+
+      // أظهر toast بعد الحذف
+      this.showSnackbar.set(true);
+      setTimeout(() => this.showSnackbar.set(false), 4000);
+    } catch (err) {
+      console.error('Error clearing wishlist:', err);
+    } finally {
+      this.deleting.set(false);
+      // أغلق الـ modal تلقائيًا بعد الحذف
+      const modalCheckbox = document.getElementById('confirm-clear') as HTMLInputElement;
+      if (modalCheckbox) modalCheckbox.checked = false;
+      this.progress.set(0); // reset progress
+    }
   }
+
+
 }

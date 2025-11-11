@@ -1,6 +1,6 @@
-<!-- <div class="p-6 min-h-screen bg-base-200"> -->
+<div class="p-6 min-h-screen bg-base-200">
   <!-- Header area for watchlist page -->
-  <!-- <div class="p-6 rounded-lg mb-8 text-center flex flex-col gap-2 items-center">
+  <div class="p-6 rounded-lg mb-8 text-center flex flex-col gap-2 items-center">
     <h1
       class="cinematic-title text-4xl md:text-5xl font-extrabold flex items-center gap-3 text-blue-600 drop-shadow-md"
     >
@@ -12,20 +12,49 @@
       Saved movies you want to watch later. Organize, play trailers, or remove items from your list.
     </p>
   </div>
-  <div class="divider w-[75%] mx-auto mb-8"></div> -->
 
-  <!-- <div class="grid grid-cols-1 lg:grid-cols-4 gap-6"> -->
+  <div class="divider w-[75%] mx-auto mb-8"></div>
+  @if (wishlistMovies().length === 0) {
+  <div
+    class="flex flex-col items-center justify-center py-16 text-center transition-colors duration-300"
+  >
+    <div
+      class="w-20 h-20 mb-4 flex items-center justify-center rounded-full bg-base-200 dark:bg-base-300 shadow-inner"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        height="32px"
+        viewBox="0 -960 960 960"
+        width="32px"
+        fill="currentColor"
+      >
+        <path
+          d="m480-120-58-52q-101-91-167-157T150-447.5Q111-500 95.5-544T80-634q0-94 63-157t157-63q52 0 99 22t81 62q34-40 81-62t99-22q94 0 157 63t63 157q0 46-15.5 90T810-447.5Q771-395 705-329T538-172l-58 52Zm0-108q96-86 158-147.5t98-107q36-45.5 50-81t14-70.5q0-60-40-100t-100-40q-47 0-87 26.5T518-680h-76q-15-41-55-67.5T300-774q-60 0-100 40t-40 100q0 35 14 70.5t50 81q36 45.5 98 107T480-228Zm0-273Z"
+        />
+      </svg>
+    </div>
+
+    <h2 class="text-xl font-semibold text-base-content/90 mb-2">Your Wishlist Is Empty</h2>
+    <p class="text-base-content/60 max-w-sm mb-6">
+      Start exploring and add your favorite movies to your wishlist to see them here later.
+    </p>
+    <button class="btn my-btn text-white btn-wide shadow-md hover:scale-105 transition">
+      Browse Movies
+    </button>
+  </div>
+  } @else{
+  <div class="grid grid-cols-1 lg:grid-cols-4 gap-6">
     <!-- main column: cards -->
-    <!-- <main class="lg:col-span-3">
+    <main class="lg:col-span-3">
       <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-        @for(i of [1,2,3,4,5,6]; track $index){
-        <app-item />
+        @for (item of wishlistMovies(); track item.id) {
+        <app-item [film]="item" />
         }
       </div>
-    </main> -->
+    </main>
 
     <!-- sidebar (controls, stats) -->
-    <!-- <aside
+    <aside
       class="lg:col-span-1 p-4 bg-base-100 rounded-lg shadow-lg sticky top-24 h-100 sidebar hidden lg:block"
     >
       <div class="mb-4">
@@ -37,37 +66,70 @@
       <div class="flex flex-col gap-3">
         <button class="btn btn-primary">Play All Trailers</button>
         <button class="btn btn-outline">Export List</button>
-        <button class="btn btn-ghost text-red-400">Clear Watchlist</button>
+        <label for="confirm-clear" class="btn btn-ghost text-red-400 cursor-pointer">
+          Clear Watchlist
+        </label>
+        <!-- Confirmation Modal -->
+        <input type="checkbox" id="confirm-clear" class="modal-toggle" />
+        <div class="modal">
+          <div class="modal-box relative">
+            <h3 class="font-bold text-lg">Clear Wishlist?</h3>
+            <p class="py-4">
+              Are you sure you want to remove all items from your wishlist? This action cannot be
+              undone.
+            </p>
+
+            <!-- Progress Bar -->
+            <progress class="progress w-full mb-4" max="100" [value]="progress()"></progress>
+
+            <div class="modal-action">
+              <label for="confirm-clear" class="btn btn-ghost" [class.disabled]="deleting()"
+                >No</label
+              >
+              <button
+                class="btn btn-error flex items-center gap-2"
+                (click)="confirmClear()"
+                [disabled]="deleting()"
+              >
+                <svg
+                  *ngIf="deleting()"
+                  class="animate-spin h-5 w-5 mr-2 text-white"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                >
+                  <circle
+                    class="opacity-25"
+                    cx="12"
+                    cy="12"
+                    r="10"
+                    stroke="currentColor"
+                    stroke-width="4"
+                  ></circle>
+                  <path
+                    class="opacity-75"
+                    fill="currentColor"
+                    d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"
+                  ></path>
+                </svg>
+                Yes
+              </button>
+            </div>
+          </div>
+        </div>
       </div>
     </aside>
   </div>
-</div> -->
-
-<div class="p-8 max-w-3xl mx-auto">
-  <div class="flex justify-between items-center mb-6">
-    <h1 class="text-3xl font-bold">My Wishlist</h1>
-    <button class="btn btn-outline btn-error" (click)="logout()">Logout</button>
-  </div>
-
-  <div class="flex mb-6">
-    <input [(ngModel)]="newItem" placeholder="Add new item..." class="input input-bordered flex-grow mr-2" />
-    <button class="btn btn-primary" (click)="addItem()">Add</button>
-  </div>
-
-  @if (wishlist.length === 0) {
-    <div class="text-center text-gray-400">
-      Your wishlist is empty.
-    </div>
   }
-
-  <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-    @for (item of wishlist; track item.id) {
-      <div class="card bg-base-100 shadow-xl p-4">
-        <div class="flex justify-between items-center">
-          <h2 class="card-title">{{ item.name }}</h2>
-          <button (click)="removeItem(item.id)" class="btn btn-sm btn-error">Remove</button>
-        </div>
-      </div>
-    }
+</div>
+<!-- Snackbar / Toast -->
+@if (showSnackbar()) {
+<div class="toast toast-top toast-end fixed z-50 m-4">
+  <div class="alert alert-success shadow-lg flex flex-row items-center gap-2">
+    <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current h-6 w-6" fill="none" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+    </svg>
+    <span>Removed successfully</span>
   </div>
 </div>
+}

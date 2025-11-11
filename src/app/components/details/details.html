@@ -23,9 +23,19 @@
         class="header-row flex flex-col md:flex-row justify-between items-start md:items-center gap-2 md:gap-0"
       >
         <h1 class="title text-3xl md:text-4xl font-extrabold">{{ film.title }}</h1>
-        <div class="fav text-3xl text-error cursor-pointer hover:scale-110 transition-transform">
-          ♥
-        </div>
+        <button
+          class="btn btn-circle btn-lg shadow-lg backdrop-blur-sm transition-all border-2 border-base-200 dark:border-base-100 hover:bg-error hover:text-white"
+          [class.bg-error]="isInWishlist()"
+          [class.text-white]="isInWishlist()"
+          aria-label="Favorite button"
+          (click)="toggleWishlist()"
+        >
+          <i
+            [class.fa-heart-crack]="isInWishlist()"
+            [class.fa-heart]="!isInWishlist()"
+            class="fa-solid"
+          ></i>
+        </button>
       </div>
 
       <!-- Tagline -->
