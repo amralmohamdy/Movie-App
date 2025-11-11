@@ -1,77 +1,64 @@
-<!-- <div class="min-h-screen flex items-center justify-center bg-base-200 p-4">
-	<div class="card w-full max-w-md bg-base-100 shadow-xl">
-		<div class="card-body">
-			<div class="flex items-center gap-3 mb-4">
-				<img src="filmscape.svg" alt="Filmscape" class="h-8 w-auto" />
-				<h2 class="text-2xl font-bold">Sign in to Filmscape</h2>
-			</div>
-			<form class="space-y-4" aria-label="Login form">
-				<div>
-					<label class="label">
-						<span class="label-text">Email</span>
-					</label>
-					<input type="email" placeholder="name@example.com" class="input input-bordered w-full" required required autocomplete="off"/>
-
-				</div>
-
-				<div>
-					<label class="label">
-						<span class="label-text">Password</span>
-					</label>
-					<input type="password" placeholder="Your password" class="input input-bordered w-full" autocomplete="new-password" /> 
-				</div>
-
-				<div class="flex items-center justify-between">
-					<label class="cursor-pointer label">
-						<input type="checkbox" class="checkbox checkbox-sm mr-2" />
-						<span class="label-text">Remember me</span>
-					</label>
-					<a class="link link-primary" routerLink="/forgot">Forgot?</a>
-				</div>
-
-				<div>
-					<button type="submit" class="btn btn-primary w-full">Sign In</button>
-				</div>
-			</form>
-
-			<div class="divider my-4">OR</div>
-
-			<div class="text-center">
-				<p class="text-sm">Don't have an account? <a routerLink="/register" class="link link-primary font-semibold">Sign up</a></p>
-			</div>
-		</div>
-	</div>
-</div> -->
-
-<!-- <div class="flex justify-center items-center min-h-screen bg-base-200">
-  <div class="card w-96 bg-base-100 shadow-xl">
+<div class="min-h-screen flex items-center justify-center bg-base-200 p-4">
+  <div class="card w-full max-w-md bg-base-100 shadow-xl">
     <div class="card-body">
-      <h2 class="card-title justify-center">Login</h2>
-      <form (ngSubmit)="onSubmit()">
-        <input type="email" [(ngModel)]="email" name="email" placeholder="Email" class="input input-bordered w-full mb-2" required>
-        <input type="password" [(ngModel)]="password" name="password" placeholder="Password" class="input input-bordered w-full mb-4" required>
-        <button class="btn btn-primary w-full">Login</button>
+      <div class="flex items-center gap-3 mb-4 justify-center">
+        <img src="logo.png" alt="Filmscape" class="h-8 w-auto" />
+        <h2 class="text-2xl font-bold my-title">Sign in</h2>
+      </div>
+      <form (ngSubmit)="login()" class="space-y-4" aria-label="Login form">
+        <div>
+          <label class="label">
+            <span class="label-text">Email</span>
+          </label>
+          <input
+            [(ngModel)]="email"
+            name="email"
+            type="email"
+            placeholder="Email"
+            class="input input-bordered w-full mb-3"
+            required
+          />
+        </div>
+
+        <div>
+          <label class="label">
+            <span class="label-text">Password</span>
+          </label>
+          <input
+            [(ngModel)]="password"
+            name="password"
+            type="password"
+            placeholder="Password"
+            class="input input-bordered w-full mb-3"
+          />
+        </div>
+
+        <div class="flex items-center justify-between">
+          <label class="cursor-pointer label">
+            <input type="checkbox" class="checkbox checkbox-sm mr-2" />
+            <span class="label-text">Remember me</span>
+          </label>
+          <a class="link link-primary" routerLink="/forgot">Forgot?</a>
+        </div>
+
+        <div>
+          <button type="submit" class="btn my-btn w-full" [disabled]="loading">
+            Sign In
+          </button>
+        </div>
       </form>
-      <p class="text-center mt-4">
-        Don't have an account?
-        <a routerLink="/register" class="link link-primary">Register</a>
-      </p>
+      @if(error) {
+      <p class="text-error text-sm mt-3 text-center">{{ error }}</p>
+      }
+
+      <div class="divider my-4">OR</div>
+
+      <div class="text-center">
+        <p class="text-sm">
+          Don't have an account?
+          <a routerLink="/register" class="link link-primary font-semibold">Sign up</a>
+        </p>
+      </div>
     </div>
   </div>
-</div> -->
-
-<div class="flex items-center justify-center min-h-screen bg-base-200">
-  <div class="card w-96 bg-base-100 shadow-xl p-6">
-    <h2 class="text-2xl font-bold mb-4 text-center">Login</h2>
-    <form (ngSubmit)="login()">
-      <input [(ngModel)]="email" name="email" type="email" placeholder="Email" class="input input-bordered w-full mb-3" />
-      <input [(ngModel)]="password" name="password" type="password" placeholder="Password" class="input input-bordered w-full mb-3" />
-      <button [disabled]="loading" class="btn btn-primary w-full">Login</button>
-    </form>
-    <p *ngIf="error" class="text-error text-sm mt-3 text-center">{{ error }}</p>
-    <p class="text-center mt-4">
-      <a routerLink="/register" class="link link-primary">Create account</a>
-    </p>
-  </div>
 </div>
-

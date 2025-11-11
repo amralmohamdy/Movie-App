@@ -14,7 +14,7 @@ interface IGenre { id: number; name: string; }
   styleUrls: ['./genres.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class GenresComponent implements OnInit {
+export default class GenresComponent implements OnInit {
   private readonly TMDB_API_KEY = '157937b13bdcff4a5ba2df9a51fb2236';
   readonly IMAGE_BASE = 'https://image.tmdb.org/t/p/w500';
 
