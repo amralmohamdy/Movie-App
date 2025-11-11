@@ -34,18 +34,38 @@ export default class Register {
 //     else this.router.navigate(['/auth/account']);
 //   }
 
+//  email = '';
+//   password = '';
+
+//   constructor(private auth: AuthService, private router: Router) {}
+
+//   onSubmit() {
+//     this.auth.register(this.email, this.password)
+//       .then(() => {
+//         alert('Registered successfully!');
+//         this.router.navigate(['/login']);
+//       })
+//       .catch(err => alert(err.message));
+//   }
+
  email = '';
   password = '';
+  loading = false;
+  error = '';
 
   constructor(private auth: AuthService, private router: Router) {}
 
-  onSubmit() {
-    this.auth.register(this.email, this.password)
-      .then(() => {
-        alert('Registered successfully!');
-        this.router.navigate(['/login']);
-      })
-      .catch(err => alert(err.message));
+  async register() {
+    this.loading = true;
+    this.error = '';
+    try {
+      await this.auth.register(this.email, this.password);
+      this.router.navigate(['/login']);
+    } catch (err: any) {
+      this.error = err.message;
+    } finally {
+      this.loading = false;
+    }
   }
 
 }
