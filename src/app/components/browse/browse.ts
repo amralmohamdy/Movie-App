@@ -1,6 +1,5 @@
 import { Component, signal, ChangeDetectionStrategy, OnInit, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterLink } from '@angular/router';
 import { Item } from '../home/item/item'; 
 import { IMovie } from '../../models/imovie';
 
@@ -9,7 +8,7 @@ import { IMovie } from '../../models/imovie';
 @Component({
   selector: 'app-browse',
   standalone: true,
-  imports: [CommonModule,RouterLink , Item],
+  imports: [CommonModule , Item],
   templateUrl: './browse.html',
   styleUrls: ['./browse.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
