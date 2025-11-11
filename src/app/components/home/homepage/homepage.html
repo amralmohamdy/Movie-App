@@ -44,23 +44,11 @@
     *ngFor="let page of visiblePages()"
     (click)="changePage(page)"
     class="join-item btn"
-    [ngClass]="{ 'btn-primary text-white': svc.page() === page }"
+    [ngClass]="{ 'btn-primary active text-white': svc.page() === page }"
   >
     {{ page }}
   </button>
 
-
-  <!-- <button
-  *ngFor="let page of visiblePages()"
-  (click)="changePage(page)"
-  class="join-item btn"
-  [ngClass]="{
-    'btn-primary text-white': svc.page() === page,
-    'btn-ghost': svc.page() !== page
-  }"
->
-  {{ page }}
-</button> -->
 
   <!-- لو في صفحات بعد المجموعة الحالية -->
   <button

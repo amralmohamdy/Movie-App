@@ -1,30 +1,74 @@
-  <!-- Movie card -->
-        <article class="card movie-card bg-base-100 shadow-xl overflow-hidden relative">
-          <div class="poster relative">
-             <img
-                     [src]="'https://image.tmdb.org/t/p/w500' + film.poster_path"
-              alt="{{ film.title }}"
-              class="movie-img w-full h-64 object-cover"
-            />
-            <button
-              class="btn btn-circle btn-sm absolute top-3 right-3 remove-floating"
-              aria-label="Remove"
-            >
-              <i class="fa-solid fa-heart-crack"></i>
-            </button>
-          </div>
-          <div class="card-body">
-            <h3 class="card-title text-lg">
-              {{ film.title.slice(0,10) }}... <span class="badge badge-ghost ml-2">{{ film.release_date | date: 'yyyy' }}</span>
-            </h3>
-            <p class="text-sm text-gray-400">{{ film.original_language | uppercase }} • ⭐ {{ film.vote_average }}</p>
-            <div class="card-actions justify-between mt-4">
-              <div class="flex gap-2">
-                <button class="btn btn-primary btn-sm absolute  bottom-3" routerLink="/movies/{{film.id}}">Details</button>
-              </div>
-              <div class="flex items-center gap-2">
-                <span class="text-sm text-[#8b5cf6] font-semibold">Saved</span>
-              </div>
-            </div>
-          </div>
-        </article>
+<article
+  class="card movie-card backdrop-blur-md bg-base-100/70 dark:bg-base-300/60 border border-base-300/30 shadow-lg hover:shadow-2xl transition-all duration-300 rounded-2xl overflow-hidden group relative"
+>
+  <div class="relative overflow-hidden">
+    <img
+      [src]="film.poster_path ? 'https://image.tmdb.org/t/p/w500' + film.poster_path : 'imgnotfound.png'"
+      alt="{{ film.title }}"
+      class="movie-img w-full h-64 object-cover transform group-hover:scale-105 transition-transform duration-500 cursor-pointer"
+      routerLink="/movies/{{ film.id }}"
+    />
+
+    <div class="absolute top-3 inset-x-0 flex justify-between px-3 z-10">
+  <div
+    class="radial-progress shadow-lg backdrop-blur-sm transition-all duration-300
+           border-2
+           bg-white/90 dark:bg-base-300/90
+           border-base-200 dark:border-base-100
+           text-primary
+    "
+    [style.--value]="film.vote_average * 10"
+    [class.text-success]="film.vote_average >= 7"
+    [class.text-warning]="film.vote_average < 7 && film.vote_average >= 5"
+    [class.text-error]="film.vote_average < 5"
+    role="progressbar"
+    style="--size:2.5rem; --thickness: 3px;"
+  >
+    <span class="text-xs font-bold">{{ (film.vote_average * 10) | number:'1.0-0' }}%</span>
+  </div>
+
+  <button
+    class="btn btn-circle btn-sm shadow-lg backdrop-blur-sm transition-all
+           bg-white/90 dark:bg-base-300/90
+           border-2 border-base-200 dark:border-base-100
+           hover:bg-error hover:text-white"
+    aria-label="Favorite button"
+  >
+    <i class="fa-solid fa-heart-crack"></i>
+  </button>
+</div>
+    <div
+      class="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+    ></div>
+  </div>
+
+  <div class="card-body p-4">
+    <h3
+      class="card-title text-lg font-semibold flex items-center justify-between text-base-content"
+    >
+      <span>{{ film.title.length > 16 ? (film.title | slice : 0 : 16) + '…' : film.title }}</span>
+      <span class="badge badge-outline badge-sm">{{ film.release_date | date : 'yyyy' }}</span>
+    </h3>
+
+    <p class="text-sm text-base-content/60 mt-1">
+      (Lang: {{ film.original_language | uppercase }}, Date: {{film.release_date}})
+    </p>
+
+
+    <div class="card-actions justify-between items-center mt-4">
+      <button
+        class="dt-btn btn btn-primary btn-sm rounded-full px-4 transition-transform duration-300 hover:scale-105"
+        routerLink="/movies/{{ film.id }}"
+      >
+        Details
+      </button>
+
+      <div
+        class="flex items-center gap-1 text-violet-500 dark:text-violet-400 font-semibold text-sm"
+      >
+        <i class="fa-solid fa-bookmark"></i>
+        <span>Saved</span>
+      </div>
+    </div>
+  </div>
+</article>

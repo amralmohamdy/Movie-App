@@ -1,6 +1,4 @@
-/* Title Gradient & Animation */
-.cinematic-title {
-  /* use the header palette for a unified look */
+/* .cinematic-title {
   background: linear-gradient(90deg, #0077d9, #8b5cf6);
   background-clip: text;
   -webkit-background-clip: text;
@@ -20,17 +18,12 @@
   animation: fadeIn 1.4s ease-out;
 }
 
-/* Smooth Card & Image Effects */
 .movie-card {
   border-radius: 1.25rem;
   overflow: hidden;
   transition: all 0.46s cubic-bezier(0.2, 0.9, 0.3, 1);
 }
 
-.movie-card:hover {
-  transform: translateY(-8px) scale(1.02);
-  box-shadow: 0 18px 48px rgba(0, 122, 204, 0.14);
-}
 
 .movie-img {
   width: 100%;
@@ -64,7 +57,6 @@
   right: 34%;
 }
 
-/* Card body typography and spacing */
 .card-body {
   padding: 1rem;
 }
@@ -73,14 +65,11 @@
   font-size: 1.05rem;
 }
 
-/* small refinements for buttons */
-.add-btn,
-.remove-btn {
+.add-btn {
   font-size: 0.7rem;
   padding: 0.22rem 0.6rem;
 }
 
-/* responsive tweaks */
 @media (max-width: 640px) {
   .movie-card .poster {
     height: 12rem;
@@ -92,9 +81,7 @@
   }
 }
 
-/* Buttons */
-.add-btn,
-.remove-btn {
+.add-btn {
   font-weight: 600;
   transition: all 0.28s ease;
   border: none;
@@ -103,26 +90,7 @@
   box-shadow: 0 10px 28px rgba(0, 122, 204, 0.08);
 }
 
-.add-btn {
-  background: linear-gradient(90deg, #00aaff, #7c3aed);
-  padding: 12px 25px;
-}
 
-.add-btn:hover {
-  background: linear-gradient(90deg, #008fd6, #6f3adf);
-  transform: scale(1.03);
-}
-
-.remove-btn {
-    background: linear-gradient(90deg, #c10909, #fb7272);
-}
-
-.remove-btn:hover {
-  background: linear-gradient(90deg, #dc2626, #ea580c);
-  transform: scale(1.03);
-}
-
-/* Animation */
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -140,7 +108,19 @@
 }
 .sidebar {
   position: sticky;
-  top: 6rem; /* نفس top-24 */
-  align-self: start; /* مهم جداً أحياناً في grid layout */
+  top: 6rem; 
+  align-self: start; 
+} */
+
+.dt-btn {
+  background: var(--hover-color);
+  color: white;
+  border: none;
+  transition: background-position 0.5s ease-in-out;
+  background-size: 200% 100%;
+  background-position: left;
 }
 
+.dt-btn:hover {
+  background-position: right;
+}

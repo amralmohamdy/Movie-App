@@ -1,7 +1,5 @@
-/* Title Gradient & Animation */
 .cinematic-title {
-  /* use the header palette for a unified look */
-  background: linear-gradient(90deg, #0077d9, #8b5cf6);
+  background: var(--primary-color);
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -12,7 +10,7 @@
 
 .cinematic-title i {
   font-size: 3rem;
-  background: linear-gradient(90deg, #00aaff, #8b5cf6);
+  background: var(--primary-color);
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -20,7 +18,6 @@
   animation: fadeIn 1.4s ease-out;
 }
 
-/* Smooth Card & Image Effects */
 .movie-card {
   border-radius: 1.25rem;
   overflow: hidden;
@@ -64,7 +61,6 @@
   right: 34%;
 }
 
-/* Card body typography and spacing */
 .card-body {
   padding: 1rem;
 }
@@ -73,14 +69,12 @@
   font-size: 1.05rem;
 }
 
-/* small refinements for buttons */
 .add-btn,
 .remove-btn {
   font-size: 0.7rem;
   padding: 0.22rem 0.6rem;
 }
 
-/* responsive tweaks */
 @media (max-width: 640px) {
   .movie-card .poster {
     height: 12rem;
@@ -92,7 +86,6 @@
   }
 }
 
-/* Buttons */
 .add-btn,
 .remove-btn {
   font-weight: 600;
@@ -122,7 +115,6 @@
   transform: scale(1.03);
 }
 
-/* Animation */
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -140,7 +132,7 @@
 }
 .sidebar {
   position: sticky;
-  top: 6rem; /* نفس top-24 */
-  align-self: start; /* مهم جداً أحياناً في grid layout */
+  top: 6rem; 
+  align-self: start; 
 }
 

@@ -1,27 +1,40 @@
-import { Component, effect, inject, OnInit } from '@angular/core';
+import { Component, effect, inject } from '@angular/core';
 import { RouterLink, RouterLinkActive } from "@angular/router";
 import { MoviesResources } from '../../shared/movies-resources';
 import { CommonModule } from '@angular/common';
+import { Theme } from '../../shared/theme';
 
 @Component({
   selector: 'app-header',
-  imports: [RouterLink, RouterLink, RouterLinkActive, CommonModule],
+  imports: [RouterLink, RouterLinkActive, CommonModule],
   templateUrl: './header.html',
   styleUrl: './header.css',
 })
-export class Header implements OnInit {
-  // controls whether the mobile menu is visible (small screens)
-  menuOpen: boolean = false;
+export class Header {
+  svc = inject(MoviesResources);
+  private theme = inject(Theme);
 
-  // placeholder watchlist count; replace with real data from a service when available
-  watchlistCount: number = 3;
+  menuOpen : boolean = false;
+  watchlistCount : number = 3;
 
-  // simple toggle method (optional use) — template currently toggles via binding
-  toggleMenu() {
-    this.menuOpen = !this.menuOpen;
+  constructor() {
+    effect(() => {
+      const current = this.theme.theme();
+      document.documentElement.setAttribute('data-theme', current);
+    });
   }
 
-  svc = inject(MoviesResources);
+  // --- Language Handling ---
+  getFlagUrl(lang: string): string {
+    const code = lang.slice(0, 2).toLowerCase();
+    switch (code) {
+      case 'ar': return 'https://flagcdn.com/w20/eg.png';
+      case 'en': return 'https://flagcdn.com/w20/us.png';
+      case 'fr': return 'https://flagcdn.com/w20/fr.png';
+      default:   return 'earth-white.png';
+    }
+  }
+
   changeLanguage(lang: string) {
     this.svc.lang.set(lang);
     const dir = lang.startsWith('ar') ? 'rtl' : 'ltr';
@@ -29,27 +42,17 @@ export class Header implements OnInit {
     console.log('Language Changed:', lang, 'Direction:', dir);
   }
 
-  isDarkMode = false;
-
-  ngOnInit() {
-    // لو المستخدم اختار مود قبل كده، نحفظه
-    const theme = localStorage.getItem('theme') || 'light';
-    this.applyTheme(theme);
-    //event on signal
-    // Reactively update dir when lang changes
-
+  // --- Menu ---
+  toggleMenu() {
+    this.menuOpen = !this.menuOpen;
   }
 
+  // --- Theme ---
   toggleTheme() {
-    this.isDarkMode = !this.isDarkMode;
-    const newTheme = this.isDarkMode ? 'dark' : 'light';
-    this.applyTheme(newTheme);
-    localStorage.setItem('theme', newTheme);
+    this.theme.toggle();
   }
 
-  applyTheme(theme: string) {
-    document.documentElement.setAttribute('data-theme', theme);
-    this.isDarkMode = theme === 'dark';
+  get isDarkMode() {
+    return this.theme.theme() === 'dark';
   }
-
 }

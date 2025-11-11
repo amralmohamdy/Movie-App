@@ -6,7 +6,7 @@ export const routes: Routes = [
     { path: '', loadComponent: () => import('./components/home/homepage/homepage'), title: 'Home' },
 
     //Named Routes
-    { path: 'watchlist', loadComponent: () => import('./components/watchlist/watchlist'), title: 'Watchlist' },
+    { path: 'wishlist', loadComponent: () => import('./components/wishlist/wishlist'), title: 'wishlist' },
     { path: 'login', loadComponent: () => import('./components/login/login'), title: 'Login' },
     { path: 'register', loadComponent: () => import('./components/register/register'), title: 'Register' },
 
