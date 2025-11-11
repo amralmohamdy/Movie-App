@@ -43,18 +43,38 @@ export default class Login {
   //   }
   // }
 
+  // email = '';
+  // password = '';
+
+  // constructor(private auth: AuthService, private router: Router) {}
+
+  // onSubmit() {
+  //   this.auth.login(this.email, this.password)
+  //     .then(() => {
+  //       alert('Login successful!');
+  //       this.router.navigate(['/']);
+  //     })
+  //     .catch(err => alert(err.message));
+  // }
+
   email = '';
   password = '';
+  loading = false;
+  error = '';
 
   constructor(private auth: AuthService, private router: Router) {}
 
-  onSubmit() {
-    this.auth.login(this.email, this.password)
-      .then(() => {
-        alert('Login successful!');
-        this.router.navigate(['/']);
-      })
-      .catch(err => alert(err.message));
+  async login() {
+    this.loading = true;
+    this.error = '';
+    try {
+      await this.auth.login(this.email, this.password);
+      this.router.navigate(['/']);
+    } catch (err: any) {
+      this.error = err.message;
+    } finally {
+      this.loading = false;
+    }
   }
 
 }

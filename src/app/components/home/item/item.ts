@@ -13,6 +13,7 @@ import { WishlistService } from '../../../services/wishlist-service';
 export class Item {
   
   public wishlistService = inject(WishlistService);
+
   @Input()
   film: IMovie = {
     adult: false,
