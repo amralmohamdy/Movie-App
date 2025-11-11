@@ -1,8 +1,9 @@
-import { Component, computed, inject, Input, input } from '@angular/core';
+import { Component, computed, inject, Input, input, signal } from '@angular/core';
 import { IMovie } from '../../../models/imovie';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from "@angular/router";
 import { WishlistResourceService } from '../../../shared/wishlist-resource-service';
+import { AuthService } from '../../../services/auth-service';
 
 @Component({
   selector: 'app-item',
@@ -13,6 +14,12 @@ import { WishlistResourceService } from '../../../shared/wishlist-resource-servi
 export class Item {
 
   WishlistResourceSvc = inject(WishlistResourceService);
+  auth = inject(AuthService);
+  showToast = signal(false);
+  toastMessage = signal('');
+  toastType = signal<'success' | 'error' | 'info'>('info');
+  toastProgress = signal(0);
+
 
   @Input()
   film: IMovie = {
@@ -38,12 +45,38 @@ export class Item {
   });
 
   async toggleWishlist() {
-    if (this.isInWishlist()) {
-      // لو موجود: نحذفه
-      await this.WishlistResourceSvc.removeItem(this.film.id);
-    } else {
-      // لو مش موجود: نضيفه
-      await this.WishlistResourceSvc.addItem(this.film.id);
+    if (!this.auth.currentUser) {
+      this.showToastMessage('You must be logged in to save movies!', 'error');
+      return;
     }
+
+    if (this.isInWishlist()) {
+      await this.WishlistResourceSvc.removeItem(this.film.id);
+      this.showToastMessage('Removed from your wishlist.', 'info');
+    } else {
+      await this.WishlistResourceSvc.addItem(this.film.id);
+      this.showToastMessage('Added to your wishlist!', 'success');
+    }
+  }
+
+  showToastMessage(message: string, type: 'success' | 'error' | 'info' = 'info', duration = 4000) {
+    this.toastMessage.set(message);
+    this.toastType.set(type);
+    this.showToast.set(true);
+    this.toastProgress.set(0);
+
+    const interval = 20; // ms per tick
+    const step = interval / duration;
+
+    const timer = setInterval(() => {
+      const next = this.toastProgress() + step;
+      if (next >= 1) {
+        this.toastProgress.set(1);
+        this.showToast.set(false);
+        clearInterval(timer);
+      } else {
+        this.toastProgress.set(next);
+      }
+    }, interval);
   }
 }
