@@ -1,10 +1,11 @@
-import { Component, ElementRef, OnInit, ViewChild, inject } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild, computed, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, NavigationEnd, Router, RouterModule } from '@angular/router';
 import { MoviesResources } from '../../shared/movies-resources';
 import { Skeleton } from '../skeleton/skeleton';
 import { SafePipe } from '../../pipes/safe-pipe';
 import { Item } from "../home/item/item";
+import { WishlistResourceService } from '../../shared/wishlist-resource-service';
 
 @Component({
   selector: 'app-details',
@@ -16,6 +17,10 @@ import { Item } from "../home/item/item";
 export default class Details implements OnInit {
   @ViewChild('trailerModal') trailerModal!: ElementRef<HTMLDialogElement>;
   router = inject(Router)
+  private route = inject(ActivatedRoute);
+  svc = inject(MoviesResources);
+  WishlistResourceSvc = inject(WishlistResourceService);
+
 
   isTrailerOpen: boolean = false;
   youtubeUrl: string = '';
@@ -40,8 +45,6 @@ export default class Details implements OnInit {
 
 
 
-  private route = inject(ActivatedRoute);
-  svc = inject(MoviesResources);
   imageBase = 'https://image.tmdb.org/t/p/w500';
 
   ngOnInit() {
@@ -107,4 +110,19 @@ export default class Details implements OnInit {
     return (rating / 2);
   }
 
+  isInWishlist = computed(() => {
+    if (this.film?.id) {
+      return this.WishlistResourceSvc.wishlistIds().includes(this.film.id);
+    } else{
+      return;
+    }
+  });
+
+  async toggleWishlist() {
+    if (this.isInWishlist() && this.film?.id ) {
+      await this.WishlistResourceSvc.removeItem(this.film.id);
+    } else if(this.film?.id) {
+      await this.WishlistResourceSvc.addItem(this.film.id);
+    }
+  }
 }

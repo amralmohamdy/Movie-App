@@ -3,41 +3,41 @@
 >
   <div class="relative overflow-hidden">
     <img
-      [src]="film.poster_path ? 'https://image.tmdb.org/t/p/w500' + film.poster_path : 'imgnotfound.png'"
+      [src]="
+        film.poster_path ? 'https://image.tmdb.org/t/p/w500' + film.poster_path : 'imgnotfound.png'
+      "
       alt="{{ film.title }}"
       class="movie-img w-full h-64 object-cover transform group-hover:scale-105 transition-transform duration-500 cursor-pointer"
       routerLink="/movies/{{ film.id }}"
     />
 
     <div class="absolute top-3 inset-x-0 flex justify-between px-3 z-10">
-  <div
-    class="radial-progress shadow-lg backdrop-blur-sm transition-all duration-300
-           border-2
-           bg-white/90 dark:bg-base-300/90
-           border-base-200 dark:border-base-100
-           text-primary
-    "
-    [style.--value]="film.vote_average * 10"
-    [class.text-success]="film.vote_average >= 7"
-    [class.text-warning]="film.vote_average < 7 && film.vote_average >= 5"
-    [class.text-error]="film.vote_average < 5"
-    role="progressbar"
-    style="--size:2.5rem; --thickness: 3px;"
-  >
-    <span class="text-xs font-bold">{{ (film.vote_average * 10) | number:'1.0-0' }}%</span>
-  </div>
+      <div
+        class="radial-progress shadow-lg backdrop-blur-sm transition-all duration-300 border-2 bg-white/90 dark:bg-base-300/90 border-base-200 dark:border-base-100 text-primary"
+        [style.--value]="film.vote_average * 10"
+        [class.text-success]="film.vote_average >= 7"
+        [class.text-warning]="film.vote_average < 7 && film.vote_average >= 5"
+        [class.text-error]="film.vote_average < 5"
+        role="progressbar"
+        style="--size: 2.5rem; --thickness: 3px"
+      >
+        <span class="text-xs font-bold">{{ film.vote_average * 10 | number : '1.0-0' }}%</span>
+      </div>
 
-  <button
-    class="btn btn-circle btn-sm shadow-lg backdrop-blur-sm transition-all
-           bg-white/90 dark:bg-base-300/90
-           border-2 border-base-200 dark:border-base-100
-           hover:bg-error hover:text-white"
-    aria-label="Favorite button"
-    (click)="wishlistService.addToWishlist({name: film.title})"
-  >
-    <i class="fa-solid fa-heart-crack"></i>
-  </button>
-</div>
+      <button
+        class="btn btn-circle btn-sm shadow-lg backdrop-blur-sm transition-all border-2 border-base-200 dark:border-base-100 hover:bg-error hover:text-white"
+        [class.bg-error]="isInWishlist()"
+        [class.text-white]="isInWishlist()"
+        aria-label="Favorite button"
+        (click)="toggleWishlist()"
+      >
+        <i
+          [class.fa-heart-crack]="isInWishlist()"
+          [class.fa-heart]="!isInWishlist()"
+          class="fa-solid"
+        ></i>
+      </button>
+    </div>
     <div
       class="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"
     ></div>
@@ -52,9 +52,8 @@
     </h3>
 
     <p class="text-sm text-base-content/60 mt-1">
-      (Lang: {{ film.original_language | uppercase }}, Date: {{film.release_date}})
+      (Lang: {{ film.original_language | uppercase }}, Date: {{ film.release_date }})
     </p>
-
 
     <div class="card-actions justify-between items-center mt-4">
       <button
