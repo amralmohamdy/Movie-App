@@ -4,11 +4,11 @@ import { ActivatedRoute, NavigationEnd, Router, RouterModule } from '@angular/ro
 import { MoviesResources } from '../../shared/movies-resources';
 import { Skeleton } from '../skeleton/skeleton';
 import { SafePipe } from '../../pipes/safe-pipe';
+import { Item } from "../home/item/item";
 
-// component for movie details
 @Component({
   selector: 'app-details',
-  imports: [CommonModule, RouterModule, Skeleton, SafePipe],
+  imports: [CommonModule, RouterModule, Skeleton, SafePipe, Item],
   templateUrl: './details.html',
   styleUrls: ['./details.css'],
 })
@@ -19,6 +19,7 @@ export default class Details implements OnInit {
 
   isTrailerOpen: boolean = false;
   youtubeUrl: string = '';
+
   openModal(trailerKey: string) {
     this.isTrailerOpen = true;
     this.youtubeUrl = `https://www.youtube.com/embed/${trailerKey}?autoplay=1`;
@@ -31,7 +32,6 @@ export default class Details implements OnInit {
     this.trailerModal.nativeElement.close();
   }
 
-  // ✨ close on backdrop
   onBackdropClick(event: MouseEvent) {
     const dialogEl = this.trailerModal.nativeElement;
     if (event.target === dialogEl) this.closeModal();
@@ -64,13 +64,8 @@ export default class Details implements OnInit {
   }
 
   get recommendations() {
-    // جلب النتائج من الـ resource
     const results = this.svc.movieRecommendations.value()?.results ?? [];
-
-    // فلترة على genre كرتون = 16
     const cartoonRecs = results.filter(r => r.genre_ids?.includes(16));
-
-    // حدد أول 6 فقط
     return cartoonRecs.slice(0, 6);
   }
 
@@ -85,7 +80,6 @@ export default class Details implements OnInit {
     return trailer ? trailer.key : null;
   }
 
-  // ✅ نجمع حالات التحميل والخطأ من كل resource
   get isLoadingAll() {
     return (
       this.svc.movieDetails.isLoading() ||
@@ -107,6 +101,10 @@ export default class Details implements OnInit {
     const h = Math.floor(mins / 60);
     const m = mins % 60;
     return h > 0 ? `${h}h ${m}m` : `${m}m`;
+  }
+
+  math(rating: number): number {
+    return (rating / 2);
   }
 
 }

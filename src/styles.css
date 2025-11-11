@@ -1,8 +1,21 @@
 @import "tailwindcss";
-@plugin "daisyui";
+
+@plugin "daisyui" {
+    themes: light --default, dark --prefersdark;
+}
 
 
 :root {
-    --primary-color: #006f9c;
+    --primary-color: linear-gradient(135deg, #3B5099 0%, #20C997 100%);
+    --hover-color: linear-gradient(135deg, #809BFF 0%, #20C997 100%);
+    --white-color:#fff;
     --dark-color: #0d141dd4;
+}
+
+.m-light {
+    background: var(--primary-color);
+}
+
+.m-dark {
+    background: var(--dark-color);
 }

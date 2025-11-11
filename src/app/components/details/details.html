@@ -4,64 +4,162 @@
   } @else if (hasError) {
   <div class="error text-error text-lg text-center mt-8">❌ Error: {{ hasError.message }}</div>
   } @else if (film) {
-  <div class="details-card flex flex-col md:flex-row gap-6">
-    <div class="left">
+  <div
+    class="details-card flex flex-col md:flex-row gap-8 p-6 md:p-10 bg-base-100 dark:bg-base-200 rounded-3xl shadow-2xl transition-all"
+  >
+    <!-- Left: Poster -->
+    <div class="left flex-shrink-0 w-full md:w-1/3 max-w-sm mx-auto md:mx-0">
       <img
-        [src]="imageBase + film.poster_path"
+        [src]="film.poster_path ? imageBase + film.poster_path : 'imgnotfound.png'"
         [alt]="film.title"
-        class="poster rounded-xl shadow-lg"
+        class="poster w-full rounded-2xl shadow-xl transition-transform hover:scale-105"
       />
     </div>
 
-    <div class="right flex-1">
-      <div class="header-row flex justify-between items-center">
-        <h1 class="title text-3xl font-bold">{{ film.title }}</h1>
-        <div class="fav text-2xl text-error cursor-pointer">♥</div>
+    <!-- Right: Details -->
+    <div class="right flex-1 flex flex-col">
+      <!-- Header -->
+      <div
+        class="header-row flex flex-col md:flex-row justify-between items-start md:items-center gap-2 md:gap-0"
+      >
+        <h1 class="title text-3xl md:text-4xl font-extrabold">{{ film.title }}</h1>
+        <div class="fav text-3xl text-error cursor-pointer hover:scale-110 transition-transform">
+          ♥
+        </div>
       </div>
 
-      <div class="meta text-sm opacity-80 mt-2">
-        <span class="release">{{ film.release_date | date : 'mediumDate' }}</span>
-        <span class="dot px-2">•</span>
-        <span class="rating">⭐ {{ film.vote_average }} ({{ film.vote_count }})</span>
-      </div>
+      <!-- Tagline -->
+      <p class="tagline text-base text-muted mt-1 italic" *ngIf="film.tagline">
+        "{{ film.tagline }}"
+      </p>
 
-      <p class="overview mt-4 leading-relaxed">{{ film.overview }}</p>
+      <!-- Meta info -->
+      <div
+        class="meta flex flex-wrap gap-4 mt-4 items-center text-sm text-gray-500 dark:text-gray-300"
+      >
+        <!-- Release Date -->
+        <span class="flex items-center gap-1 my-text cursor-default">
+          <i class="fas fa-calendar-alt"></i>
+          {{ film.release_date | date : 'mediumDate' }}
+        </span>
 
-      <div class="genres flex flex-wrap gap-2 mt-3">
-        @for (g of film.genres; track $index) {
-        <span class="badge badge-outline">{{ $any(g).name }}</span>
+        <!-- Runtime -->
+
+        @if(film.runtime){
+        <div class="tooltip">
+          <div class="tooltip-content">
+            <div class="text-white-400">Duration</div>
+          </div>
+          <span class="flex items-center gap-1 my-text cursor-default" data-tip="duration">
+            <i class="fas fa-clock"></i>
+            {{ formatRuntime(film.runtime) }}
+          </span>
+        </div>
         }
       </div>
 
-      <div class="extras mt-5 space-y-2">
-        <div><strong>Duration:</strong> {{ formatRuntime(film.runtime) }}</div>
+      <!-- Rating stars -->
+      <div class="flex items-center gap-3 mt-3">
+        <!-- Stars -->
+        @if(film.vote_average!= null){
+        <div class="stars flex items-center gap-1">
+          @for(i of [1,2,3,4,5]; track $index) {
+          <i
+            class="fa-solid fa-star w-5 h-5"
+            [ngClass]="{
+              'text-yellow-400': i < math(film.vote_average),
+              'text-gray-300 dark:text-gray-500': i >= math(film.vote_average)
+            }"
+          >
+          </i>
+          }
+        </div>
+        }
+
+        <!-- Numeric Rating -->
+        <span class="text-sm font-semibold">{{ film.vote_average / 2 | number : '1.1-1' }}/5</span>
+
+        <!-- Votes Count -->
+        <span class="text-sm opacity-70">votes: {{ film.vote_count | number }}</span>
+      </div>
+
+      <!-- Overview -->
+      <div class="mt-6">
+        <h3 class="text-lg font-semibold mb-2 my-text">Overview</h3>
+        <p
+          class="p-4 rounded-xl bg-base-200/60 dark:bg-base-300/40 text-base-content text-sm md:text-base leading-relaxed shadow-sm border border-base-300/40 backdrop-blur-sm"
+        >
+          {{ film.overview }}
+        </p>
+      </div>
+      <!-- Genres -->
+      <div class="genres mt-4">
+        <h3 class="text-lg font-semibold mb-2 my-text">Genres</h3>
+        <div class="flex flex-wrap gap-2">
+          @for (g of film.genres; track $index) {
+          <a class="btn btn-outline btn-warning" [routerLink]="'/genres/' + g.id">{{
+            $any(g).name
+          }}</a>
+          }
+        </div>
+      </div>
+      <div class="divider mb-0"></div>
+      <!-- Extras -->
+      <div class="extras mt-5 grid grid-cols-1 sm:grid-cols-2 gap-2 text-sm">
+        @if (film.spoken_languages.length) {
         <div>
           <strong>Language:</strong>
-          {{ film.spoken_languages[0]?.name || (film.original_language | uppercase) }}
+          @for(i of film.spoken_languages; track $index; let ix = $index ){
+          {{ i.english_name + ' (' + i.name + ')' }}
+          @if(ix+1 < film.spoken_languages.length ){,}@else{.} }
         </div>
-
-        @if (film.production_companies.length > 0) {
-        <div><strong>Production:</strong> {{ film.production_companies[0].name }}</div>
+        } @if (film.production_companies.length > 0) {
+        <div class="flex flex-wrap items-center">
+          <strong>Production:</strong>
+          <div class="tooltip w-25">
+            <div class="tooltip-content">
+              <div class="text-white-400">{{ film.production_companies[0].name }}</div>
+            </div>
+            <img [src]="imageBase + film.production_companies[0].logo_path" class="mx-2" />
+          </div>
+        </div>
+        } @if (film.budget) {
+        <div><strong>Budget:</strong> {{ film.budget | currency : 'USD' : 'symbol' }}</div>
+        } @if (film.revenue) {
+        <div><strong>Revenue:</strong> {{ film.revenue | currency : 'USD' : 'symbol' }}</div>
         }
       </div>
 
-      <div class="buttons flex gap-3 mt-6">
+      <!-- Buttons -->
+      <div class="buttons flex flex-wrap gap-3 mt-6">
         @if (film.homepage) {
-        <a [href]="film.homepage" class="btn btn-primary" target="_blank" rel="noopener">Website</a>
-        } @if (trailerKey) {
-        <a          
-          class="btn btn-outline"
+        <a
+          [href]="film.homepage"
+          class="btn btn-primary transition-transform hover:scale-105"
           target="_blank"
           rel="noopener"
-          (click)="openModal(trailerKey); $event.preventDefault(); trailerModal.showModal();"
-          >▶ Play Trailer</a
+          >Website</a
         >
+        } @if (trailerKey) {
+        <a
+          class="btn btn-outline flex items-center gap-2 transition-transform hover:scale-105"
+          (click)="openModal(trailerKey); $event.preventDefault(); trailerModal.showModal()"
+        >
+          <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+            <path d="M4 4l12 6-12 6V4z" />
+          </svg>
+          Play Trailer
+        </a>
 
-        <!-- 🎬 Trailer Modal -->
         <dialog #trailerModal class="modal" (click)="closeModal()">
           <div class="modal-box max-w-3xl bg-base-200">
             <form method="dialog">
-              <button class="btn btn-sm btn-circle btn-ghost absolute right-3 top-3" (click)="closeModal()">✕</button>
+              <button
+                class="btn btn-sm btn-circle btn-ghost absolute right-3 top-3"
+                (click)="closeModal()"
+              >
+                ✕
+              </button>
             </form>
             <div class="aspect-video mt-4 rounded-xl overflow-hidden">
               <iframe
@@ -81,19 +179,12 @@
   </div>
 
   @if (recommendations.length > 0) {
-  <div class="recommendations mt-10">
+  <div class="divider mt-10"></div>
+  <div class="recommendations">
     <h3 class="text-xl font-semibold mb-3">Recommendations</h3>
     <div class="rec-row grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-4">
       @for (r of recommendations; track r.id) {
-      <a [routerLink]="['/movies', r.id]" class="rec-card block hover:opacity-80 transition">
-        <img [src]="imageBase + r.poster_path" [alt]="r.title" class="rounded-lg shadow-md" />
-        <div class="rec-title mt-2 text-sm font-medium">
-          {{ r.title.slice(0, 15) }}....
-        </div>
-        <div class="rec-sub text-xs opacity-75">
-          {{ r.release_date | date : 'mediumDate' }}
-        </div>
-      </a>
+      <app-item [film]="r" />
       }
     </div>
   </div>
