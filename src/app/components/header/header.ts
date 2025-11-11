@@ -68,10 +68,9 @@ export class Header {
 
 
   logout() {
-    alert('loggedout');
     this.auth.logout().then(() => {
       this.router.navigate(['/login']);
-      
+
     });
   }
 
