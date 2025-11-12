@@ -24,6 +24,24 @@ export class Header {
   menuOpen: boolean = false;
 
   constructor() {
+    // 1. --- LANGUAGE INITIALIZATION (LOAD FROM LOCAL STORAGE) ---
+    const storedLang = localStorage.getItem('appLang');
+    const defaultLang = 'en'; // افترض 'en' كإعداد افتراضي إذا لم يتم العثور على أي شيء
+
+    // تحديد اللغة الأولية (المخزنة > الافتراضية)
+    const initialLang = storedLang || defaultLang;
+
+    // تطبيق اللغة على ngx-translate
+    this.translate.use(initialLang);
+
+    // تطبيق اتجاه النص (RTL/LTR)
+    const dir = initialLang.startsWith('ar') ? 'rtl' : 'ltr';
+    document.documentElement.setAttribute('dir', dir);
+
+    // تحديث Signal اللغة في الخدمة
+    this.svc.lang.set(initialLang);
+
+    // 2. --- THEME EFFECT ---
     effect(() => {
       const current = this.theme.theme();
       document.documentElement.setAttribute('data-theme', current);
@@ -42,11 +60,20 @@ export class Header {
   }
 
   changeLanguage(lang: string) {
-    this.svc.lang.set(lang);
-    const dir = lang.startsWith('ar') ? 'rtl' : 'ltr';
+    const langCode = lang.slice(0, 2);
+
+    // 1. **SAVE TO LOCAL STORAGE**
+    localStorage.setItem('appLang', langCode);
+
+    // 2. Update the translation service (ngx-translate)
+    this.translate.use(langCode);
+
+    // 3. Update internal state/direction
+    this.svc.lang.set(langCode);
+    const dir = langCode.startsWith('ar') ? 'rtl' : 'ltr';
     document.documentElement.setAttribute('dir', dir);
-    console.log('Language Changed:', lang, 'Direction:', dir);
-    this.translate.use(lang.slice(0,2));
+
+    console.log('Language Changed:', langCode, 'Direction:', dir);
   }
 
   // --- Menu ---
@@ -65,12 +92,9 @@ export class Header {
 
   toggleDropdown: boolean = false;
 
-
-
   logout() {
     this.auth.logout().then(() => {
       this.router.navigate(['/login']);
-
     });
   }
 
