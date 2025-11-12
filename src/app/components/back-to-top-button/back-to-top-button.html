@@ -1,0 +1,19 @@
+@if(isVisible()) {
+<button
+  (click)="scrollToTop()"
+  class="fixed bottom-4 end-4 sm:bottom-8 sm:end-8 btn btn-lg my-btn btn-circle shadow-lg transition-opacity duration-300 ease-in-out opacity-100 z-50 hover:scale-105 active:scale-95 tooltip tooltip-top"
+  aria-label="Back to top"
+  data-tip="Back to Top"
+>
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    class="h-6 w-6"
+    fill="none"
+    viewBox="0 0 24 24"
+    stroke="currentColor"
+    stroke-width="2"
+  >
+    <path stroke-linecap="round" stroke-linejoin="round" d="M5 10l7-7m0 0l7 7m-7-7v18" />
+  </svg>
+</button>
+}
