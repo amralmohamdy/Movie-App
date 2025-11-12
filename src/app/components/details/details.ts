@@ -7,10 +7,11 @@ import { SafePipe } from '../../pipes/safe-pipe';
 import { Item } from "../home/item/item";
 import { WishlistResourceService } from '../../shared/wishlist-resource-service';
 import { AuthService } from '../../services/auth-service';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-details',
-  imports: [CommonModule, RouterModule, Skeleton, SafePipe, Item],
+  imports: [CommonModule, RouterModule, Skeleton, SafePipe, Item, TranslatePipe],
   templateUrl: './details.html',
   styleUrls: ['./details.css'],
 })

@@ -3,12 +3,12 @@
     <div class="card-body">
       <div class="flex items-center gap-3 mb-4 justify-center">
         <img src="logo.png" alt="Filmscape" class="h-8 w-auto" />
-        <h2 class="text-2xl font-bold my-title">Sign in</h2>
+        <h2 class="text-2xl font-bold my-title">{{'login.sign_in' | translate}}</h2>
       </div>
       <form (ngSubmit)="login()" class="space-y-4" aria-label="Login form">
         <div>
           <label class="label">
-            <span class="label-text">Email</span>
+            <span class="label-text">{{'login.email' | translate}}</span>
           </label>
           <input
             [(ngModel)]="email"
@@ -22,7 +22,7 @@
 
         <div>
           <label class="label">
-            <span class="label-text">Password</span>
+            <span class="label-text">{{'login.password' | translate}}</span>
           </label>
           <input
             [(ngModel)]="password"
@@ -36,14 +36,14 @@
         <div class="flex items-center justify-between">
           <label class="cursor-pointer label">
             <input type="checkbox" class="checkbox checkbox-sm mr-2" />
-            <span class="label-text">Remember me</span>
+            <span class="label-text">{{'login.remember_me' | translate}}</span>
           </label>
-          <a class="link link-primary" routerLink="/forgot">Forgot?</a>
+          <a class="link link-primary" routerLink="/forgot">{{'login.forgot' | translate}}</a>
         </div>
 
         <div>
           <button type="submit" class="btn my-btn w-full" [disabled]="loading">
-            Sign In
+            {{'login.sign_in' | translate}}
           </button>
         </div>
       </form>
@@ -51,12 +51,12 @@
       <p class="text-error text-sm mt-3 text-center">{{ error }}</p>
       }
 
-      <div class="divider my-4">OR</div>
+      <div class="divider my-4">{{'login.or' | translate}}</div>
 
       <div class="text-center">
         <p class="text-sm">
-          Don't have an account?
-          <a routerLink="/register" class="link link-primary font-semibold">Sign up</a>
+          {{'login.dhac' | translate}}
+          <a routerLink="/register" class="link link-primary font-semibold">{{'login.sign_up' | translate}}</a>
         </p>
       </div>
     </div>

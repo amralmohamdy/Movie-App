@@ -1,26 +1,26 @@
 <div class="min-h-screen bg-base-200 flex items-center justify-center p-4">
   <div class="card w-full max-w-lg bg-base-100 shadow-xl">
     <div class="card-body">
-      <h2 class="card-title justify-center text-2xl mb-4">Welcome, {{ currentUser()?.email }}</h2>
+      <h2 class="card-title justify-center text-2xl mb-4">{{'account.welcome' | translate}} {{ currentUser()?.email }}</h2>
       
       <div class="grid grid-cols-1 gap-4 md:grid-cols-2">
         <!-- Email -->
         <div class="p-4 bg-base-200 rounded-lg text-center">
-          <p class="font-semibold text-sm text-gray-500">Email</p>
+          <p class="font-semibold text-sm text-gray-500">{{'account.email' | translate}}</p>
           <p class="text-lg font-bold">{{ currentUser()?.email }}</p>
         </div>
 
         <!-- Wishlist Count -->
         <div class="p-4 bg-base-200 rounded-lg text-center">
-          <p class="font-semibold text-sm text-gray-500">Wishlist Movies</p>
+          <p class="font-semibold text-sm text-gray-500">{{'account.wishlistmovies' | translate}}</p>
           <p class="text-lg font-bold">{{ wishlistCount() }}</p>
         </div>
       </div>
 
       <!-- Buttons -->
       <div class="mt-6 flex flex-col gap-3 md:flex-row justify-center">
-        <button class="btn btn-primary flex-1" (click)="changePassword()">Change Password</button>
-        <button class="btn btn-error flex-1" (click)="logout()">Logout</button>
+        <button class="btn btn-primary flex-1" (click)="changePassword()">{{'account.changePassword' | translate}}</button>
+        <button class="btn btn-error flex-1" (click)="logout()">{{'account.logout' | translate}}</button>
       </div>
     </div>
   </div>

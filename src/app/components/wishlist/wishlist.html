@@ -5,11 +5,11 @@
       class="cinematic-title text-4xl md:text-5xl font-extrabold flex items-center gap-3 text-blue-600 drop-shadow-md"
     >
       <i class="fa-solid fa-clapperboard text-3xl md:text-4xl text-blue-500"></i>
-      My Wishlist
+      {{ 'wishlist.title' | translate }}
     </h1>
 
     <p class="mt-2 text-sm text-gray-500 max-w-xl">
-      Saved movies you want to watch later. Organize, play trailers, or remove items from your list.
+      {{ 'wishlist.desc' | translate }}
     </p>
   </div>
 
@@ -34,12 +34,15 @@
       </svg>
     </div>
 
-    <h2 class="text-xl font-semibold text-base-content/90 mb-2">Your Wishlist Is Empty</h2>
-    <p class="text-base-content/60 max-w-sm mb-6">
-      Start exploring and add your favorite movies to your wishlist to see them here later.
-    </p>
-    <button class="btn my-btn text-white btn-wide shadow-md hover:scale-105 transition" routerLink="">
-      Browse Movies
+    <h2 class="text-xl font-semibold text-base-content/90 mb-2">
+      {{ 'wishlist.empty' | translate }}
+    </h2>
+    <p class="text-base-content/60 max-w-sm mb-6">{{ 'wishlist.desc_em' | translate }}</p>
+    <button
+      class="btn my-btn text-white btn-wide shadow-md hover:scale-105 transition"
+      routerLink=""
+    >
+      {{ 'wishlist.btm' | translate }}
     </button>
   </div>
   } @else{
@@ -58,25 +61,24 @@
       class="lg:col-span-1 p-4 bg-base-100 rounded-lg shadow-lg sticky top-24 h-100 sidebar hidden lg:block"
     >
       <div class="mb-4">
-        <h4 class="text-lg font-bold">Watchlist Summary</h4>
+        <h4 class="text-lg font-bold">{{ 'wishlist.summary' | translate }}</h4>
         <p class="text-sm text-gray-400 mt-2">
-          You have <strong>3</strong> items saved. Start watching or export your list.
+          {{ 'wishlist.yh' | translate }} <strong>{{ wishlistCount() }}</strong>
+          {{ 'wishlist.hv' | translate }}
         </p>
       </div>
       <div class="flex flex-col gap-3">
-        <button class="btn btn-primary">Play All Trailers</button>
-        <button class="btn btn-outline">Export List</button>
+        <button class="btn btn-primary">{{ 'wishlist.pat' | translate }}</button>
+        <!-- <button class="btn btn-outline">Export List</button> -->
         <label for="confirm-clear" class="btn btn-ghost text-red-400 cursor-pointer">
-          Clear Watchlist
+          {{ 'wishlist.clear' | translate }}
         </label>
         <!-- Confirmation Modal -->
         <input type="checkbox" id="confirm-clear" class="modal-toggle" />
         <div class="modal">
           <div class="modal-box relative">
-            <h3 class="font-bold text-lg">Clear Wishlist?</h3>
-            <p class="py-4">
-              Are you sure you want to remove all items from your wishlist? This action cannot be
-              undone.
+            <h3 class="font-bold text-lg">{{ 'wishlist.clear' | translate }} ?</h3>
+            <p class="py-4">{{'wishlist.confirm' | translate}}
             </p>
 
             <!-- Progress Bar -->
@@ -84,7 +86,7 @@
 
             <div class="modal-action">
               <label for="confirm-clear" class="btn btn-ghost" [class.disabled]="deleting()"
-                >No</label
+                >{{'wishlist.no' | translate}}</label
               >
               <button
                 class="btn btn-error flex items-center gap-2"
@@ -112,7 +114,7 @@
                     d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"
                   ></path>
                 </svg>
-                Yes
+                {{'wishlist.yes' | translate}}
               </button>
             </div>
           </div>
@@ -126,10 +128,15 @@
 @if (showSnackbar()) {
 <div class="toast toast-top toast-end fixed z-50 m-4">
   <div class="alert alert-success shadow-lg flex flex-row items-center gap-2">
-    <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current h-6 w-6" fill="none" viewBox="0 0 24 24">
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      class="stroke-current h-6 w-6"
+      fill="none"
+      viewBox="0 0 24 24"
+    >
       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
     </svg>
-    <span>Removed successfully</span>
+    <span>{{'wishlist.removed' | translate}}</span>
   </div>
 </div>
 }

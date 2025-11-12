@@ -58,7 +58,7 @@
         @if(film.runtime){
         <div class="tooltip">
           <div class="tooltip-content">
-            <div class="text-white-400">Duration</div>
+            <div class="text-white-400">{{'details.duration' | translate}}</div>
           </div>
           <span class="flex items-center gap-1 my-text cursor-default" data-tip="duration">
             <i class="fas fa-clock"></i>
@@ -95,7 +95,7 @@
 
       <!-- Overview -->
       <div class="mt-6">
-        <h3 class="text-lg font-semibold mb-2 my-text">Overview</h3>
+        <h3 class="text-lg font-semibold mb-2 my-text">{{'details.overview' | translate}}</h3>
         <p
           class="p-4 rounded-xl bg-base-200/60 dark:bg-base-300/40 text-base-content text-sm md:text-base leading-relaxed shadow-sm border border-base-300/40 backdrop-blur-sm"
         >
@@ -104,7 +104,7 @@
       </div>
       <!-- Genres -->
       <div class="genres mt-4">
-        <h3 class="text-lg font-semibold mb-2 my-text">Genres</h3>
+        <h3 class="text-lg font-semibold mb-2 my-text">{{'details.genres' | translate}}</h3>
         <div class="flex flex-wrap gap-2">
           @for (g of film.genres; track $index) {
           <a class="btn btn-outline btn-warning" [routerLink]="'/genres/' + g.id">{{
@@ -118,7 +118,7 @@
       <div class="extras mt-5 grid grid-cols-1 sm:grid-cols-2 gap-2 text-sm">
         @if (film.spoken_languages.length) {
         <div>
-          <strong>Language:</strong>
+          <strong>{{'details.language' | translate}}:</strong>
           @for(i of film.spoken_languages; track $index; let ix = $index ){
           {{ i.english_name + ' (' + i.name + ')' }}
           @if(ix+1 < film.spoken_languages.length ){,}@else{.} }
@@ -134,9 +134,9 @@
           </div>
         </div>
         } @if (film.budget) {
-        <div><strong>Budget:</strong> {{ film.budget | currency : 'USD' : 'symbol' }}</div>
+        <div><strong>{{'details.budget' | translate}}:</strong> {{ film.budget | currency : 'USD' : 'symbol' }}</div>
         } @if (film.revenue) {
-        <div><strong>Revenue:</strong> {{ film.revenue | currency : 'USD' : 'symbol' }}</div>
+        <div><strong>{{'details.revenue' | translate}}:</strong> {{ film.revenue | currency : 'USD' : 'symbol' }}</div>
         }
       </div>
 
@@ -148,7 +148,7 @@
           class="btn btn-primary transition-transform hover:scale-105"
           target="_blank"
           rel="noopener"
-          >Website</a
+          >{{'details.website' | translate}}</a
         >
         } @if (trailerKey) {
         <a
@@ -158,7 +158,7 @@
           <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
             <path d="M4 4l12 6-12 6V4z" />
           </svg>
-          Play Trailer
+          {{'details.playTrailer' | translate}}
         </a>
 
         <dialog #trailerModal class="modal" (click)="closeModal()">
@@ -191,7 +191,7 @@
   @if (recommendations.length > 0) {
   <div class="divider mt-10"></div>
   <div class="recommendations">
-    <h3 class="text-xl font-semibold mb-3">Recommendations</h3>
+    <h3 class="text-xl font-semibold mb-3">{{'details.recommendations' | translate}}</h3>
     <div class="rec-row grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-4">
       @for (r of recommendations; track r.id) {
       <app-item [film]="r" />

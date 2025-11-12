@@ -6,10 +6,11 @@ import { CommonModule } from '@angular/common';
 import { Item } from "../home/item/item";
 import { IMovie } from '../../models/imovie';
 import { Skeleton } from '../skeleton/skeleton';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-search',
-  imports: [FormsModule, CommonModule, Item, Skeleton],
+  imports: [FormsModule, CommonModule, Item, Skeleton, TranslatePipe],
   templateUrl: './search.html',
   styleUrl: './search.css',
 })

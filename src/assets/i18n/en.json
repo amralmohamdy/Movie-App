@@ -1,0 +1,117 @@
+{
+  "header": {
+    "home": "Home",
+    "browse": "Browse",
+    "genres": "Genres",
+    "newreleases": "New Releases",
+    "login": "Login",
+    "wishlist": "Wishlist",
+    "myaccount": "My Account",
+    "logout": "Log Out"
+  },
+  "account": {
+    "welcome": "Welcome,",
+    "wishlistmovies": "Wishlist Movies",
+    "changePassword": "Change Password",
+    "logout": "Log Out",
+    "email": "Email"
+  },
+  "hero": {
+    "hello": "Welcome To",
+    "site": "CineVue",
+    "description": "Discover the latest movies, explore top-rated films, and find what to watch next!",
+    "input": "Search for a movie...",
+    "searchBtn": "Search"
+  },
+  "footer": {
+    "title": "latest Movies and films.",
+    "desc": "Providing reliable tech since 2025"
+  },
+  "browse": {
+    "title": "Browse",
+    "popular": "Popular",
+    "topRated": "Top Rated",
+    "upcoming": "UpComing",
+    "nof": "No movies found."
+  },
+  "details": {
+    "duration": "Duration",
+    "overview": "Overview",
+    "genres": "Genres",
+    "language": "Language",
+    "budget": "Budget",
+    "Revenue": "Revenue",
+    "website": "Website",
+    "playTrailer": "Play Trailer",
+    "recommendations": "Recommendations"
+  },
+  "item": {
+    "lang": "Lang",
+    "date": "date",
+    "details": "Details",
+    "saved": "Saved",
+    "login_required": "You must be logged in to save movies!",
+    "removed": "Removed from your wishlist.",
+    "added": "Added to your wishlist!"
+  },
+  "login":
+  {
+    "sign_in":"Sign in",
+    "email" : "Email",
+    "password" : "Password",
+    "remember_me":"Remember me",
+    "forgot" : "Forgot?",
+    "or" : "OR",
+    "dhac" :"Don't have an account?",
+    "sign_up" : "Sign Up"
+  },
+  "register" : 
+  {
+    "title" : "Register",
+    "agree":"I agree to the",
+    "terms" : "terms and conditions",
+    "ahac" : "Already have an account?",
+    "conditions":"This website is a demo and training project built for learning Angular only. It does not contain any real data, personal information, or functional services. All content is fictional and intended solely for educational purposes.",
+    "close":"Close"
+  },
+  "newR":
+  {
+    "title":"New Releases",
+    "nof" : "No movies found."
+  },
+  "not_found":
+  {
+    "title":"Page Not Found",
+    "oops" : "Oops! The page you’re looking for doesn’t exist or was moved.",
+    "home":"🏠 Go Home",
+    "cr":"Movie App"
+  },
+  "search":
+  {
+    "library":"Library of +1M",
+    "mov":"Movies",
+    "desc" : "Your next cinematic adventure starts here. Search and find your masterpiece!",
+    "input":"Search for a movie...",
+    "btn":"Search",
+    "nof" : "No movies found. Try another search!",
+    "loading":"Loading...",
+    "lm":"Load More"
+  },
+  "wishlist": 
+  {
+    "title":"My Wishlist",
+    "desc":"Saved movies you want to watch later. Organize, play trailers, or remove items from your list.",
+    "empty" : "Your Wishlist Is Empty",
+    "desc_em" : "Start exploring and add your favorite movies to your wishlist to see them here later.",
+    "btm":"Browse Movies",
+    "summary":"Watchlist Summary",
+    "yh" : "You have",
+    "hv" : "items saved. Start watching or export your list.",
+    "pat":"Play All Trailers",
+    "clear":"Clear Watchlist",
+    "confirm":"Are you sure you want to remove all items from your wishlist? This action cannot be undone.",
+    "no":"No",
+    "yes":"Yes",
+    "removed":"Removed successfully"
+  }
+}

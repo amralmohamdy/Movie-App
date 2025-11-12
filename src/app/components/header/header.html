@@ -31,14 +31,14 @@
       >
         <li>
           <a routerLink="" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }"
-            >Home</a
+            >{{'header.home' | translate}}</a
           >
         </li>
-        <li><a routerLink="browse" routerLinkActive="active">Browse</a></li>
-        <li><a routerLink="genres" routerLinkActive="active">Genres</a></li>
-        <li><a routerLink="new" routerLinkActive="active">New Releases</a></li>
-        <li><a routerLink="login" routerLinkActive="active">Login</a></li>
-        <li><a routerLink="wishlist" routerLinkActive="active">Wishlist</a></li>
+        <li><a routerLink="browse" routerLinkActive="active">{{'header.browse' | translate}}</a></li>
+        <li><a routerLink="genres" routerLinkActive="active">{{'header.genres' | translate}}</a></li>
+        <li><a routerLink="new" routerLinkActive="active">{{'header.newreleases' | translate}}</a></li>
+        <li><a routerLink="login" routerLinkActive="active">{{'header.login' | translate}}</a></li>
+        <li><a routerLink="wishlist" routerLinkActive="active">{{'header.wishlist' | translate}}</a></li>
       </ul>
     </div>
 
@@ -58,12 +58,12 @@
     <ul class="menu menu-horizontal px-1 font-medium">
       <li>
         <a routerLink="" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }"
-          >Home</a
+          >{{'header.home' | translate}}</a
         >
       </li>
-      <li><a routerLink="browse" routerLinkActive="active">Browse</a></li>
-      <li><a routerLink="genres" routerLinkActive="active">Genres</a></li>
-      <li><a routerLink="new" routerLinkActive="active">New Releases</a></li>
+      <li><a routerLink="browse" routerLinkActive="active">{{'header.browse' | translate}}</a></li>
+      <li><a routerLink="genres" routerLinkActive="active">{{'header.genres' | translate}}</a></li>
+      <li><a routerLink="new" routerLinkActive="active">{{'header.newreleases' | translate}}</a></li>
     </ul>
   </div>
 
@@ -112,7 +112,7 @@
       <ul tabindex="0" class="menu dropdown-content mt-3 p-2 shadow bg-base-200 rounded-box w-32">
         <li>
           <a (click)="changeLanguage('ar')"
-            ><img src="https://flagcdn.com/w20/eg.png" class="w-5 h-5 mr-2" /> Arabic</a
+            ><img src="https://flagcdn.com/w20/eg.png" class="w-5 h-5 mr-2" /> العربية</a
           >
         </li>
         <li>
@@ -172,7 +172,7 @@
             class="btn btn-ghost w-full text-center text-base text-base-content dark:text-base-content"
             routerLink="/account"
           >
-            My Account
+            {{'header.myaccount' | translate}}
           </button>
         </li>
         <li>
@@ -180,7 +180,7 @@
             (click)="logout()"
             class="btn btn-ghost w-full text-center text-base text-base-content dark:text-base-content"
           >
-            Log Out
+            {{'header.logout' | translate}}
           </button>
         </li>
       </ul>
@@ -205,7 +205,7 @@
       >
         <path d="M3 7h18M5 7v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7" />
       </svg>
-      <span class="hidden md:inline ml-1">Wishlist</span>
+      <span class="hidden md:inline ml-1">{{'header.wishlist' | translate}}</span>
       <!-- Badge ديناميكي -->
       <div class="badge badge-sm bg-primary text-white absolute -top-2 -right-2">
         {{ wishlistCount() }}

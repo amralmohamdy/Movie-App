@@ -5,16 +5,18 @@ import { IMovie } from '../../models/imovie';
 import { MoviesResources } from '../../shared/movies-resources';
 import { IMmdbModel } from '../../models/immdb-model';
 import { Skeleton } from '../skeleton/skeleton';
+import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 
 
 
 @Component({
   selector: 'app-browse',
-  imports: [CommonModule, Item, Skeleton],
+  imports: [CommonModule, Item, Skeleton, TranslatePipe],
   templateUrl: './browse.html',
   styleUrls: ['./browse.css'],
 })
 export default class BrowseComponent implements OnInit {
+  private translate = inject(TranslateService);
   private moviesResources = inject(MoviesResources);
   readonly IMAGE_BASE = 'https://image.tmdb.org/t/p/w300';
 
@@ -26,9 +28,17 @@ export default class BrowseComponent implements OnInit {
   mode = signal<'popular' | 'top_rated' | 'upcoming'>('popular');
   modeLabel = computed(() => {
     const m = this.mode();
-    if (m === 'popular') return 'Popular';
-    if (m === 'top_rated') return 'Top Rated';
-    return 'Upcoming';
+    let key: string;
+
+    if (m === 'popular') {
+      key = 'browse.popular';
+    } else if (m === 'top_rated') {
+      key = 'browse.topRated';
+    } else {
+      key = 'browse.upcoming';
+    }
+
+    return this.translate.instant(key);
   });
 
   // pagination

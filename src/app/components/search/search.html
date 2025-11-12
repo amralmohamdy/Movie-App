@@ -8,21 +8,23 @@
 
   <!-- Content -->
   <div class="relative text-center max-w-2xl px-4 z-10">
-    <h1 class="text-5xl font-bold mb-4">Library of +1M <span class="word">Movies</span></h1>
+    <h1 class="text-5xl font-bold mb-4">
+      {{ 'search.library' | translate }} <span class="word">{{ 'search.mov' | translate }}</span>
+    </h1>
     <p class="text-gray-300 text-lg mb-6">
-      Your next cinematic adventure starts here. Search and find your masterpiece!
+      {{ 'search.desc' | translate }}
     </p>
 
     <!-- Search Bar -->
     <div class="join w-full max-w-md mx-auto">
       <input
         type="text"
-        placeholder="Search for a movie..."
+        placeholder="{{'search.input' | translate}}"
         class="input input-bordered join-item w-full transition-all duration-200 bg-base-200 text-base-content placeholder-base-content/60 focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary"
         [(ngModel)]="query"
         (keyup.enter)="onSearch()"
       />
-      <button class="btn btn-primary my join-item text-white" (click)="onSearch()">Search</button>
+      <button class="btn btn-primary my join-item text-white" (click)="onSearch()">{{'search.btn' | translate}}</button>
     </div>
   </div>
 </section>
@@ -31,7 +33,7 @@
 @if(loading() && movies.length === 0 ) {
 <app-skeleton [type]="'list'" class="p-2" /> } @else if(movies.length === 0 && !loading()) {
 <div class="col-span-full text-center text-gray-400 py-10">
-  No movies found. Try another search! 🎬
+  {{'search.nof' | translate}} 🎬
 </div>
 }@else{
 <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-4 my-8 px-4">
@@ -46,8 +48,8 @@
 <div class="text-center my-6">
   @if(loading()) {
   <app-skeleton [type]="'list'" class="p-2 my-6" />
-  <button class="btn btn-primary btn-wide" disabled>Loading...</button>
+  <button class="btn btn-primary btn-wide" disabled>{{'search.loading' | translate}}</button>
   } @else if(movies.length > 0 && page < totalPages()) {
-  <button class="btn btn-primary btn-wide" (click)="loadMore()">Load More</button>
+  <button class="btn btn-primary btn-wide" (click)="loadMore()">{{'search.lm' | translate}}</button>
   }
 </div>

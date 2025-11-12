@@ -1,5 +1,5 @@
 <div class="container mx-auto p-4">
-  <h1 class="text-2xl font-semibold mb-4">Browse – {{ modeLabel() }}</h1>
+  <h1 class="text-2xl font-semibold mb-4">{{ 'browse.title' | translate }} – {{ modeLabel() }}</h1>
 
   <div class="flex flex-wrap gap-2 mb-4">
     <button
@@ -7,21 +7,21 @@
       [class.my-btn]="mode() === 'popular'"
       (click)="setMode('popular')"
     >
-      Popular
+      {{ 'browse.popular' | translate }}
     </button>
     <button
       class="btn px-3 py-2 rounded-full border"
       [class.my-btn]="mode() === 'top_rated'"
       (click)="setMode('top_rated')"
     >
-      Top Rated
+      {{ 'browse.topRated' | translate }}
     </button>
     <button
       class="btn px-3 py-2 rounded-full border"
       [class.my-btn]="mode() === 'upcoming'"
       (click)="setMode('upcoming')"
     >
-      Upcoming
+      {{ 'browse.upcoming' | translate }}
     </button>
   </div>
 
@@ -35,7 +35,7 @@
     <app-item [film]="m"></app-item>}
   </div>
   }@else if(!loading() && movies().length === 0){
-  <div class="py-8 text-center text-muted">No movies found.</div>
+  <div class="py-8 text-center text-muted">{{'browse.nof' | translate}}</div>
   } @if(totalPages() > 1) {
   <div class="join flex justify-center mt-8">
     <button class="join-item btn" [disabled]="page() === 1" (click)="prevPage()">«</button>
