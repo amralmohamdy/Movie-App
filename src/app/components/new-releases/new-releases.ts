@@ -5,11 +5,12 @@ import { Item } from '../home/item/item'; // تأكد path صحيح
 import { IMovie } from '../../models/imovie';
 import { MoviesResources } from '../../shared/movies-resources';
 import { Skeleton } from '../skeleton/skeleton';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-new-releases',
   standalone: true,
-  imports: [CommonModule, Item, Skeleton],
+  imports: [CommonModule, Item, Skeleton, TranslatePipe],
   templateUrl: './new-releases.html',
   styleUrls: ['./new-releases.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,

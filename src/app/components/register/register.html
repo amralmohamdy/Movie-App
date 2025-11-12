@@ -2,7 +2,7 @@
   class="flex items-center justify-center min-h-screen bg-base-200 transition-colors duration-300"
 >
   <div class="card w-96 bg-base-100 shadow-xl p-6 transition-colors duration-300">
-    <h2 class="text-2xl font-bold mb-4 text-center text-base-content my-title">Register</h2>
+    <h2 class="text-2xl font-bold mb-4 text-center text-base-content my-title">{{'register.title' | translate}}</h2>
 
     <form (ngSubmit)="register()" class="flex flex-col gap-3">
       <input
@@ -32,21 +32,21 @@
           required
           class="checkbox my-checkbox"
         />
-        I agree to the
+        {{'register.agree' | translate}}
         <span class="link link-primary cursor-pointer" (click)="termsModalOpen = true"
-          >terms and conditions</span
+          >{{'register.terms' | translate}}</span
         >
       </label>
 
       <button [disabled]="loading || !agreeTerms" class="btn my-btn w-full mt-3">
-        Register
+        {{'register.title' | translate}}
       </button>
     </form>
 
     <p *ngIf="error" class="text-error text-sm mt-3 text-center">{{ error }}</p>
 
     <p class="text-center mt-4 text-base-content">
-      <a routerLink="/login" class="link link-primary">Already have an account?</a>
+      <a routerLink="/login" class="link link-primary">{{'register.ahac' | translate}}</a>
     </p>
   </div>
 </div>
@@ -55,14 +55,12 @@
 <input type="checkbox" id="terms-modal" class="modal-toggle" [(ngModel)]="termsModalOpen" hidden />
 <div class="modal" [class.modal-open]="termsModalOpen">
   <div class="modal-box relative bg-base-100">
-    <h3 class="text-lg font-bold text-base-content">Terms and Conditions</h3>
+    <h3 class="text-lg font-bold text-base-content">{{'register.terms' | translate}}</h3>
     <p class="py-4 text-sm text-base-content">
-      This website is a demo and training project built for learning Angular only. It does not
-      contain any real data, personal information, or functional services. All content is fictional
-      and intended solely for educational purposes.
+      {{'register.conditions' | translate}}
     </p>
     <div class="modal-action">
-      <button class="btn btn-primary" (click)="termsModalOpen = false">Close</button>
+      <button class="btn btn-primary" (click)="termsModalOpen = false">{{'register.close' | translate}}</button>
     </div>
   </div>
 </div>

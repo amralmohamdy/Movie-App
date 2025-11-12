@@ -2,11 +2,12 @@ import { Component, inject, computed, effect } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth-service';
 import { WishlistResourceService } from '../../shared/wishlist-resource-service';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-account',
   templateUrl: './account.html',
-  imports: [],
+  imports: [TranslatePipe],
   styleUrls: ['./account.css'],
   standalone: true,
 })

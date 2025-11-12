@@ -5,24 +5,23 @@ import { CommonModule } from '@angular/common';
 import { Theme } from '../../shared/theme';
 import { WishlistResourceService } from '../../shared/wishlist-resource-service';
 import { AuthService } from '../../services/auth-service';
+import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-header',
-  imports: [RouterLink, RouterLinkActive, CommonModule],
+  imports: [RouterLink, RouterLinkActive, CommonModule, TranslatePipe],
   templateUrl: './header.html',
   styleUrl: './header.css',
 })
 export class Header {
+  translate = inject(TranslateService);
   auth = inject(AuthService);
   svc = inject(MoviesResources);
   router = inject(Router);
   private theme = inject(Theme);
   wishlistResource = inject(WishlistResourceService);
   wishlistCount = computed(() => this.wishlistResource.wishlistCount());
-
-
   menuOpen: boolean = false;
-  watchlistCount: number = 3;
 
   constructor() {
     effect(() => {
@@ -47,6 +46,7 @@ export class Header {
     const dir = lang.startsWith('ar') ? 'rtl' : 'ltr';
     document.documentElement.setAttribute('dir', dir);
     console.log('Language Changed:', lang, 'Direction:', dir);
+    this.translate.use(lang.slice(0,2));
   }
 
   // --- Menu ---

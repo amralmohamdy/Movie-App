@@ -1,0 +1,111 @@
+{
+  "header": {
+    "home": "Accueil",
+    "browse": "Explorer",
+    "genres": "Genres",
+    "newreleases": "Nouveautés",
+    "login": "Connexion",
+    "wishlist": "Mes Favoris",
+    "myaccount": "Mon Compte",
+    "logout": "Déconnexion"
+  },
+  "account": {
+    "welcome": "Bienvenue,",
+    "wishlistmovies": "Films Favoris",
+    "changePassword": "Changer le Mot de Passe",
+    "logout": "Se Déconnecter",
+    "email": "E-mail"
+  },
+  "hero": {
+    "hello": "Bienvenue sur",
+    "site": "CineVue",
+    "description": "Découvrez les derniers films, explorez les mieux notés, et trouvez votre prochaine œuvre à regarder !",
+    "input": "Rechercher un film...",
+    "searchBtn": "Rechercher"
+  },
+  "footer": {
+    "title": "Derniers films et nouveautés.",
+    "desc": "Fournisseur de technologie fiable depuis 2025"
+  },
+  "browse": {
+    "title": "Explorer",
+    "popular": "Populaires",
+    "topRated": "Mieux Notés",
+    "upcoming": "À Venir",
+    "nof": "Aucun film trouvé."
+  },
+  "details": {
+    "duration": "Durée",
+    "overview": "Synopsis",
+    "genres": "Genres",
+    "language": "Langue",
+    "budget": "Budget",
+    "Revenue": "Recettes",
+    "website": "Site Web",
+    "playTrailer": "Voir la Bande-Annonce",
+    "recommendations": "Suggestions"
+  },
+  "item": {
+    "lang": "Langue",
+    "date": "Date de Sortie",
+    "details": "Détails",
+    "saved": "Enregistré",
+    "login_required": "Vous devez être connecté pour enregistrer des films !",
+    "removed": "Retiré de vos favoris.",
+    "added": "Ajouté à vos favoris !"
+  },
+  "login": {
+    "sign_in": "Se Connecter",
+    "email": "E-mail",
+    "password": "Mot de Passe",
+    "remember_me": "Se Souvenir de Moi",
+    "forgot": "Oublié ?",
+    "or": "OU",
+    "dhac": "Pas encore de compte ?",
+    "sign_up": "S'inscrire"
+  },
+  "register": {
+    "title": "Inscription",
+    "agree": "J'accepte les",
+    "terms": "conditions générales",
+    "ahac": "Vous avez déjà un compte ?",
+    "conditions": "Ce site Web est un projet de démonstration et de formation conçu uniquement pour l'apprentissage d'Angular. Il ne contient aucune donnée réelle, information personnelle ou service fonctionnel. Tout le contenu est fictif et destiné uniquement à des fins éducatives.",
+    "close": "Fermer"
+  },
+  "newR": {
+    "title": "Nouveautés",
+    "nof": "Aucun film trouvé."
+  },
+  "not_found": {
+    "title": "Page Introuvable",
+    "oops": "Oups ! La page que vous recherchez n'existe pas ou a été déplacée.",
+    "home": "🏠 Retour à l'Accueil",
+    "cr": "Application Cinéma"
+  },
+  "search": {
+    "library": "Bibliothèque de +1M",
+    "mov": "Films",
+    "desc": "Votre prochaine aventure cinématographique commence ici. Cherchez et trouvez votre chef-d'œuvre !",
+    "input": "Rechercher un film...",
+    "btn": "Rechercher",
+    "nof": "Aucun film trouvé. Essayez une autre recherche !",
+    "loading": "Chargement...",
+    "lm": "Charger Plus"
+  },
+  "wishlist": {
+    "title": "Mes Films Favoris",
+    "desc": "Les films enregistrés que vous aimez et souhaitez revoir. Organisez-les, lancez les bandes-annonces ou retirez des éléments de votre liste.",
+    "empty": "Votre Liste de Favoris est Vide",
+    "desc_em": "Commencez à explorer et ajoutez vos films préférés à cette liste pour les retrouver ici plus tard.",
+    "btm": "Parcourir les Films",
+    "summary": "Résumé de la Liste",
+    "yh": "Vous avez",
+    "hv": "éléments sauvegardés. Commencez à regarder ou exportez votre liste.",
+    "pat": "Lancer Toutes les Bandes-Annonces",
+    "clear": "Vider la Liste",
+    "confirm": "Êtes-vous certain de vouloir retirer tous les éléments de votre liste de favoris ? Cette action est irréversible.",
+    "no": "Non",
+    "yes": "Oui",
+    "removed": "Retiré avec succès"
+  }
+}

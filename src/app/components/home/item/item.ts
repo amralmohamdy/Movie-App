@@ -4,15 +4,16 @@ import { CommonModule } from '@angular/common';
 import { RouterLink } from "@angular/router";
 import { WishlistResourceService } from '../../../shared/wishlist-resource-service';
 import { AuthService } from '../../../services/auth-service';
+import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-item',
-  imports: [CommonModule, RouterLink],
+  imports: [CommonModule, RouterLink, TranslatePipe],
   templateUrl: './item.html',
   styleUrl: './item.css',
 })
 export class Item {
-
+  private translate = inject(TranslateService);
   WishlistResourceSvc = inject(WishlistResourceService);
   auth = inject(AuthService);
   showToast = signal(false);
@@ -46,16 +47,16 @@ export class Item {
 
   async toggleWishlist() {
     if (!this.auth.currentUser) {
-      this.showToastMessage('You must be logged in to save movies!', 'error');
+      this.showToastMessage(this.translate.instant('item.login_required'), 'error');
       return;
     }
 
     if (this.isInWishlist()) {
       await this.WishlistResourceSvc.removeItem(this.film.id);
-      this.showToastMessage('Removed from your wishlist.', 'info');
+      this.showToastMessage(this.translate.instant('item.removed'), 'info');
     } else {
       await this.WishlistResourceSvc.addItem(this.film.id);
-      this.showToastMessage('Added to your wishlist!', 'success');
+      this.showToastMessage(this.translate.instant('item.added'), 'success');
     }
   }
 
@@ -65,7 +66,7 @@ export class Item {
     this.showToast.set(true);
     this.toastProgress.set(0);
 
-    const interval = 20; // ms per tick
+    const interval = 20; 
     const step = interval / duration;
 
     const timer = setInterval(() => {

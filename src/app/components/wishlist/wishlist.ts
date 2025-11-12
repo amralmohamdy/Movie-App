@@ -5,14 +5,16 @@ import { AuthService } from '../../services/auth-service';
 import { Router, RouterLink } from '@angular/router';
 import { Item } from '../home/item/item';
 import { WishlistResourceService } from '../../shared/wishlist-resource-service';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-wishlist',
-  imports: [CommonModule, FormsModule, Item,RouterLink],
+  imports: [CommonModule, FormsModule, Item, RouterLink, TranslatePipe],
   templateUrl: './wishlist.html',
   styleUrl: './wishlist.css',
 })
 export default class Wishlist implements OnInit {
+  wishlistCount = computed(() => this.wishlistResource.wishlistCount());
   newItem: number = 0;
   wishlistMovies = computed(() => this.wishlistResource.wishlistMoviesResource.value() ?? []);
   showSnackbar = signal(false);

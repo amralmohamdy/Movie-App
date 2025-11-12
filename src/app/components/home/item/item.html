@@ -52,7 +52,8 @@
     </h3>
 
     <p class="text-sm text-base-content/60 mt-1">
-      (Lang: {{ film.original_language | uppercase }}, Date: {{ film.release_date }})
+      ({{ 'item.lang' | translate }}: {{ film.original_language | uppercase }},
+      {{ 'item.date' | translate }}: {{ film.release_date }})
     </p>
 
     <div class="card-actions justify-between items-center mt-4">
@@ -60,7 +61,7 @@
         class="dt-btn btn btn-primary btn-sm rounded-full px-4 transition-transform duration-300 hover:scale-105"
         routerLink="/movies/{{ film.id }}"
       >
-        Details
+        {{ 'item.details' | translate }}
       </button>
 
       @if(isInWishlist()){
@@ -68,33 +69,73 @@
         class="flex items-center gap-1 text-violet-500 dark:text-violet-400 font-semibold text-sm"
       >
         <i class="fa-solid fa-bookmark"></i>
-        <span>Saved</span>
+        <span> {{ 'item.saved' | translate }}</span>
       </div>
       }
     </div>
   </div>
 </article>
-<!-- Toast Notification -->
-<div *ngIf="showToast()" class="fixed bottom-4 right-4 z-50 transition-all duration-300">
+<div class="fixed top-4 inset-x-0 z-[1000] w-full max-w-sm mx-auto p-2 pointer-events-none">
   <div
-    class="alert shadow-lg rounded-xl border border-base-300 dark:border-base-100 relative overflow-hidden"
+    class="alert shadow-2xl rounded-xl transition-transform duration-500 ease-out transform"
     [ngClass]="{
-      'bg-success text-white': toastType() === 'success',
-      'bg-error text-white': toastType() === 'error',
-      'bg-info text-white': toastType() === 'info'
+      'alert-success': toastType() === 'success',
+      'alert-error': toastType() === 'error',
+      'alert-info': toastType() === 'info',
+
+      'translate-y-0 opacity-100': showToast(),
+      'translate-y-[-120%] opacity-0': !showToast()
     }"
   >
-    <span>{{ toastMessage() }}</span>
+    <svg
+      *ngIf="toastType() === 'success'"
+      xmlns="http://www.w3.org/2000/svg"
+      class="stroke-current shrink-0 h-6 w-6"
+      fill="none"
+      viewBox="0 0 24 24"
+    >
+      <path
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="2"
+        d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+      />
+    </svg>
+    <svg
+      *ngIf="toastType() === 'error'"
+      xmlns="http://www.w3.org/2000/svg"
+      class="stroke-current shrink-0 h-6 w-6"
+      fill="none"
+      viewBox="0 0 24 24"
+    >
+      <path
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="2"
+        d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"
+      />
+    </svg>
+    <svg
+      *ngIf="toastType() === 'info'"
+      xmlns="http://www.w3.org/2000/svg"
+      fill="none"
+      viewBox="0 0 24 24"
+      class="stroke-current shrink-0 w-6 h-6"
+    >
+      <path
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="2"
+        d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+      ></path>
+    </svg>
 
-    <!-- Progress bar -->
+    <span class="font-medium">{{ toastMessage() }}</span>
+
     <div
-      class="absolute bottom-0 left-0 h-1"
+      class="absolute bottom-0 left-0 h-1 bg-current opacity-70"
       [style.width.%]="toastProgress() * 100"
-      [ngClass]="{
-        'bg-success/70': toastType() === 'success',
-        'bg-error/70': toastType() === 'error',
-        'bg-info/70': toastType() === 'info'
-      }"
+      style="transition: width 0.1s linear"
     ></div>
   </div>
 </div>
