@@ -100,13 +100,14 @@ ng serve
 
 ## 🖼️ Screenshots (Placeholders)
 
-> You can replace these placeholders with real screenshots later:
+> Screen Shots with various (light/Dark) and Languages(EN, AR, FR):
 
-![Placeholder Screenshot](./screenshots/home.png)
+![Placeholder Screenshot](./screenshots/home-dark.png)
+![Placeholder Screenshot](./screenshots/home-light.png)
 ![Placeholder Screenshot](./screenshots/details.png)
 ![Placeholder Screenshot](./screenshots/wishlist.png)
 
-> يمكنك لاحقًا إضافة لقطات الشاشة الحقيقية.
+> لقطات شاشة متعددة من الموقع في الوضع (اليلي / النهاري) وكذلك مع تغيير اللغات (عربي، انجليزي، فرنسي).
 
 ---
 
@@ -134,5 +135,3 @@ ng serve
 ## ⚖️ License
 
 MIT License © 2025 CineVue MovieApp Team
-
-```
