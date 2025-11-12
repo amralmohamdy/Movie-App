@@ -200,3 +200,28 @@
   </div>
   } }
 </div>
+
+<!-- Toast Notification -->
+<div *ngIf="showToast()" class="fixed top-4 right-4 z-50 transition-all duration-300">
+  <div
+    class="alert shadow-lg rounded-xl border border-base-300 dark:border-base-100 relative overflow-hidden"
+    [ngClass]="{
+      'bg-success text-white': toastType() === 'success',
+      'bg-error text-white': toastType() === 'error',
+      'bg-info text-white': toastType() === 'info'
+    }"
+  >
+    <span>{{ toastMessage() }}</span>
+
+    <!-- Progress bar -->
+    <div
+      class="absolute top-0 left-0 h-1"
+      [style.width.%]="toastProgress() * 100"
+      [ngClass]="{
+        'bg-success/70': toastType() === 'success',
+        'bg-error/70': toastType() === 'error',
+        'bg-info/70': toastType() === 'info'
+      }"
+    ></div>
+  </div>
+</div>
