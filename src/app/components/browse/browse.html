@@ -3,72 +3,67 @@
 
   <div class="flex flex-wrap gap-2 mb-4">
     <button
-      class="px-3 py-2 rounded-full border"
-      [class.bg-primary]="mode() === 'popular'"
+      class="btn px-3 py-2 rounded-full border"
+      [class.my-btn]="mode() === 'popular'"
       (click)="setMode('popular')"
     >
       Popular
     </button>
     <button
-      class="px-3 py-2 rounded-full border"
-      [class.bg-primary]="mode() === 'top_rated'"
+      class="btn px-3 py-2 rounded-full border"
+      [class.my-btn]="mode() === 'top_rated'"
       (click)="setMode('top_rated')"
     >
       Top Rated
     </button>
     <button
-      class="px-3 py-2 rounded-full border"
-      [class.bg-primary]="mode() === 'upcoming'"
+      class="btn px-3 py-2 rounded-full border"
+      [class.my-btn]="mode() === 'upcoming'"
       (click)="setMode('upcoming')"
     >
       Upcoming
     </button>
   </div>
 
-  <div *ngIf="loading()" class="py-8 text-center">Loading movies...</div>
-  <div *ngIf="error()" class="text-red-500 text-center">{{ error() }}</div>
-
-  <div
-    *ngIf="!loading() && !error()"
-    class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 my-8"
-  >
-    <app-item *ngFor="let m of movies()" [film]="m"></app-item>
+  @if(loading()){
+  <app-skeleton [type]="'list'" />
+  } @else if(error()){
+  <div class="text-error text-center">{{ error() }}</div>
+  } @else if(!loading() && !error()){
+  <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 my-8">
+    @for(m of movies(); track m.id){
+    <app-item [film]="m"></app-item>}
   </div>
-
-  <div *ngIf="!loading() && movies().length === 0" class="py-8 text-center text-muted">
-    No movies found.
-  </div>
-
-  <div class="join flex justify-center mt-8" *ngIf="totalPages() > 1">
+  }@else if(!loading() && movies().length === 0){
+  <div class="py-8 text-center text-muted">No movies found.</div>
+  } @if(totalPages() > 1) {
+  <div class="join flex justify-center mt-8">
     <button class="join-item btn" [disabled]="page() === 1" (click)="prevPage()">«</button>
 
-    <button
-      *ngIf="visiblePages()[0] > 1"
+    @if(visiblePages()[0] > 1){<button
       class="join-item btn"
       (click)="changePage(visiblePages()[0] - 1)"
     >
-      …
-    </button>
-
+      …</button
+    >} @for( p of visiblePages(); track $index){
     <button
-      *ngFor="let p of visiblePages()"
       class="join-item btn"
-      [ngClass]="{ 'btn-primary text-white': page() === p }"
+      [ngClass]="{ 'my-btn text-white': page() === p }"
       (click)="changePage(p)"
     >
       {{ p }}
     </button>
-
+    } @if(visiblePages()[visiblePages().length - 1] < totalPages()){
     <button
-      *ngIf="visiblePages()[visiblePages().length - 1] < totalPages()"
       class="join-item btn"
       (click)="changePage(visiblePages()[visiblePages().length - 1] + 1)"
     >
-      …
-    </button>
+      …</button
+    >}
 
     <button class="join-item btn" [disabled]="page() === totalPages()" (click)="nextPage()">
       »
     </button>
   </div>
+  }
 </div>

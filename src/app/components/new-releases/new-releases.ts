@@ -1,20 +1,21 @@
-import { Component, signal, ChangeDetectionStrategy, OnInit, computed } from '@angular/core';
+import { Component, signal, ChangeDetectionStrategy, OnInit, computed, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { Item } from '../home/item/item'; // تأكد path صحيح
 import { IMovie } from '../../models/imovie';
+import { MoviesResources } from '../../shared/movies-resources';
+import { Skeleton } from '../skeleton/skeleton';
 
 @Component({
   selector: 'app-new-releases',
   standalone: true,
-  imports: [CommonModule, Item],
+  imports: [CommonModule, Item, Skeleton],
   templateUrl: './new-releases.html',
   styleUrls: ['./new-releases.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export default class NewReleasesComponent implements OnInit {
-  private readonly TMDB_API_KEY = '157937b13bdcff4a5ba2df9a51fb2236';
-  
+  private moviesResources = inject(MoviesResources);
   movies = signal<IMovie[]>([]);
   loading = signal(false);
   error = signal<string | null>(null);
@@ -44,15 +45,11 @@ export default class NewReleasesComponent implements OnInit {
     this.error.set(null);
 
     try {
-      const params = new URLSearchParams({
-        api_key: this.TMDB_API_KEY,
-        language: 'en-US',
-        page: String(page),
-        include_adult: 'false'
-      });
-      const res = await fetch(`https://api.themoviedb.org/3/movie/now_playing?${params.toString()}`);
-      if (!res.ok) throw new Error('Failed to fetch new releases');
-      const json = await res.json();
+      const lang = this.moviesResources.lang();
+
+      // استدعاء دالة الجلب الصريحة من الخدمة
+      const json = await this.moviesResources.fetchNowPlayingMovies(page, lang);
+
       this.movies.set(json.results ?? []);
       this.totalPages.set(json.total_pages ?? 1);
     } catch (err: unknown) {
@@ -65,8 +62,7 @@ export default class NewReleasesComponent implements OnInit {
   }
 
   async changePage(pageNum: number) {
-    if (pageNum < 1) pageNum = 1;
-    if (pageNum > this.totalPages()) pageNum = this.totalPages();
+    pageNum = Math.max(1, Math.min(pageNum, this.totalPages()));
     this.page.set(pageNum);
     await this.loadMovies(pageNum);
   }

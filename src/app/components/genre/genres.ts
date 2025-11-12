@@ -1,40 +1,45 @@
-import { Component, signal, ChangeDetectionStrategy, OnInit, computed } from '@angular/core';
+import { Component, signal, ChangeDetectionStrategy, OnInit, computed, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterLink } from '@angular/router';
+import { ActivatedRoute, NavigationEnd, Router, RouterLink } from '@angular/router';
 import { Item } from '../home/item/item';
 import { IMovie } from '../../models/imovie';
-
-interface IGenre { id: number; name: string; }
+import { MoviesResources } from '../../shared/movies-resources';
+import { IGenre } from '../../models/igenre';
+import { Skeleton } from '../skeleton/skeleton';
 
 @Component({
   selector: 'app-genres',
   standalone: true,
-  imports: [CommonModule, Item],
+  imports: [CommonModule, Item, Skeleton, RouterLink],
   templateUrl: './genres.html',
   styleUrls: ['./genres.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export default class GenresComponent implements OnInit {
-  private readonly TMDB_API_KEY = '157937b13bdcff4a5ba2df9a51fb2236';
+  private route = inject(ActivatedRoute);
+  private moviesResources = inject(MoviesResources);
+  router = inject(Router);
+
   readonly IMAGE_BASE = 'https://image.tmdb.org/t/p/w500';
 
   genres = signal<IGenre[]>([]);
   movies = signal<IMovie[]>([]);
 
   loadingGenres = signal(false);
-  loadingMovies = signal(false);
   errorGenres = signal<string | null>(null);
+
+  loadingMovies = signal(false);
   errorMovies = signal<string | null>(null);
 
   selectedGenreId = signal<number | null>(null);
+  page = signal(1);
+  totalPages = signal(1);
+
   selectedGenreName = computed(() => {
     const id = this.selectedGenreId();
     if (!id) return 'All';
     return this.genres().find(g => g.id === id)?.name ?? 'Selected';
   });
-
-  page = signal(1);
-  totalPages = signal(1);
 
   visiblePages = computed(() => {
     const cur = this.page();
@@ -51,18 +56,24 @@ export default class GenresComponent implements OnInit {
 
   async ngOnInit() {
     await this.loadGenres();
-    if (this.genres().length) this.selectGenre(this.genres()[0].id);
-    else await this.loadMoviesByDiscover();
+
+    this.route.paramMap.subscribe(async params => {
+      const idParam = params.get('id');
+      const id = idParam ? Number(idParam) : 0;
+      if (id !== this.selectedGenreId()) {
+        this.selectedGenreId.set(id);
+        this.page.set(1);
+        await this.loadMovies();
+      }
+    });
   }
 
   async loadGenres() {
     this.loadingGenres.set(true);
     this.errorGenres.set(null);
     try {
-      const res = await fetch(`https://api.themoviedb.org/3/genre/movie/list?api_key=${this.TMDB_API_KEY}&language=en-US`);
-      if (!res.ok) throw new Error(`Failed to fetch genres (${res.status})`);
-      const json = await res.json();
-      this.genres.set(json.genres ?? []);
+      const data = await this.moviesResources.genresList.value();
+      this.genres.set(data ?? []);
     } catch (err: unknown) {
       this.errorGenres.set(err instanceof Error ? err.message : String(err));
       this.genres.set([]);
@@ -71,53 +82,25 @@ export default class GenresComponent implements OnInit {
     }
   }
 
-  async selectGenre(genreId: number) {
-    if (this.selectedGenreId() === genreId) return;
-    this.selectedGenreId.set(genreId);
+  async selectGenre(id: number | null) {
+    if (this.selectedGenreId() === id) return;
+    this.selectedGenreId.set(id);
     this.page.set(1);
-    await this.loadMoviesByGenre(genreId, this.page());
+    await this.loadMovies();
   }
 
-  async loadMoviesByGenre(genreId: number, page = 1) {
+  async loadMovies() {
     this.loadingMovies.set(true);
     this.errorMovies.set(null);
     try {
-      const params = new URLSearchParams({
-        api_key: this.TMDB_API_KEY,
-        language: 'en-US',
-        page: String(page),
-        include_adult: 'false',
-        with_genres: String(genreId)
-      });
-      const res = await fetch(`https://api.themoviedb.org/3/discover/movie?${params.toString()}`);
-      if (!res.ok) throw new Error(`Failed to fetch movies (${res.status})`);
-      const json = await res.json();
-      this.movies.set(json.results ?? []);
-      this.totalPages.set(json.total_pages ?? 1);
-    } catch (err: unknown) {
-      this.errorMovies.set(err instanceof Error ? err.message : String(err));
-      this.movies.set([]);
-      this.totalPages.set(1);
-    } finally {
-      this.loadingMovies.set(false);
-    }
-  }
+      const genreId = this.selectedGenreId() ?? 0;
+      const currentPage = this.page();
+      const lang = this.moviesResources.lang(); // افترض أن lang متاح من الخدمة
 
-  async loadMoviesByDiscover(page = 1) {
-    this.loadingMovies.set(true);
-    this.errorMovies.set(null);
-    try {
-      const params = new URLSearchParams({
-        api_key: this.TMDB_API_KEY,
-        language: 'en-US',
-        page: String(page),
-        include_adult: 'false'
-      });
-      const res = await fetch(`https://api.themoviedb.org/3/discover/movie?${params.toString()}`);
-      if (!res.ok) throw new Error(`Failed to fetch movies (${res.status})`);
-      const json = await res.json();
-      this.movies.set(json.results ?? []);
-      this.totalPages.set(json.total_pages ?? 1);
+      const data = await this.moviesResources.fetchMoviesByGenre(genreId, currentPage, lang);
+
+      this.movies.set(data?.results ?? []);
+      this.totalPages.set(data?.total_pages ?? 1);
     } catch (err: unknown) {
       this.errorMovies.set(err instanceof Error ? err.message : String(err));
       this.movies.set([]);
@@ -128,11 +111,9 @@ export default class GenresComponent implements OnInit {
   }
 
   async changePage(pageNum: number) {
-    if (pageNum < 1) pageNum = 1;
-    if (pageNum > this.totalPages()) pageNum = this.totalPages();
+    pageNum = Math.max(1, Math.min(pageNum, this.totalPages()));
     this.page.set(pageNum);
-    if (this.selectedGenreId()) await this.loadMoviesByGenre(this.selectedGenreId()!, pageNum);
-    else await this.loadMoviesByDiscover(pageNum);
+    await this.loadMovies();
   }
 
   async nextPage() { await this.changePage(this.page() + 1); }

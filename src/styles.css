@@ -19,3 +19,16 @@
 .m-dark {
     background: var(--dark-color);
 }
+
+
+.my-btn
+{
+    background:var(--hover-color);
+    border:var(--hover-color);
+    color: var(--white-color);
+}
+.my-btn:hover
+{
+    background:var(--primary-color);
+    border:var(--primary-color);
+}

@@ -7,6 +7,6 @@ import { Component, Input } from '@angular/core';
   styleUrl: './skeleton.css',
 })
 export  class Skeleton {
-  @Input() type: 'details' | 'list' | 'card' = 'card';
+  @Input() type: 'details' | 'list' | 'card' | 'btns' = 'card';
 
 }
