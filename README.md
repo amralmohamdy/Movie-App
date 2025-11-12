@@ -101,9 +101,9 @@ ng serve
 ## 🖼️ Screenshots (Placeholders)
 
 > Screen Shots with various (light/Dark) and Languages(EN, AR, FR):
-
-![Placeholder Screenshot](./screenshots/home-dark.png)
+> 
 ![Placeholder Screenshot](./screenshots/home-light.png)
+![Placeholder Screenshot](./screenshots/home-dark.png)
 ![Placeholder Screenshot](./screenshots/details.png)
 ![Placeholder Screenshot](./screenshots/wishlist.png)
 
