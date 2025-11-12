@@ -14,6 +14,7 @@ export const routes: Routes = [
   { path: 'browse', loadComponent: () => import('./components/browse/browse'), title: 'Browse' },
   //Paramterized Route
   { path: 'movies/:id', loadComponent: () => import('./components/details/details'), title: 'Movie Details' },
+  { path: 'genres/:id', loadComponent: () => import('./components/genre/genres'), title: 'Genres' },
   { path: 'search', loadComponent: () => import('./components/search/search'), title: 'Movie Search' },
   //Not Found
   { path: '**', loadComponent: () => import('./components/not-found/not-found'), title: 'Not Found | 404 Page' },

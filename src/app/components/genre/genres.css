@@ -1,69 +1,11 @@
-.container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 1rem;
+.my-btn
+{
+    background:var(--hover-color);
+    border:var(--hover-color);
+    color: var(--white-color);
 }
-button {
-  border: 1px solid #ccc;
-  background: #fff;
-  color: #333;
-  font-weight: 500;
-  transition: all 0.2s;
-}
-button:hover {
-  background: #f0f0f0;
-  border-color: #999;
-}
-button.bg-primary {
-  background: #3b82f6;
-  color: #fff;
-  border-color: #3b82f6;
-}
-
-.card {
-  background: #fff;
-  border-radius: 0.5rem;
-  overflow: hidden;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-  transition: transform 0.2s, box-shadow 0.2s;
-}
-.card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-}
-
-.card img {
-  width: 100%;
-  height: 16rem;
-  object-fit: cover;
-  border-radius: 0.5rem 0.5rem 0 0;
-}
-.card .mt-2 {
-  margin-top: 0.5rem;
-}
-.text-muted {
-  color: #6b7280;
-}
-.text-gray-500 {
-  color: #6b7280;
-}
-
-.join-item.btn {
-  margin: 0 2px;
-  padding: 0.4rem 0.8rem;
-  border-radius: 0.25rem;
-  border: 1px solid #ccc;
-  background: #fff;
-  color: #333;
-  font-weight: 500;
-  transition: all 0.2s;
-}
-.join-item.btn:hover {
-  background: #f0f0f0;
-  border-color: #999;
-}
-.join-item.btn.btn-primary {
-  background: #3b82f6;
-  color: #fff;
-  border-color: #3b82f6;
+.my-btn:hover
+{
+    background:var(--primary-color);
+    border:var(--primary-color);
 }
