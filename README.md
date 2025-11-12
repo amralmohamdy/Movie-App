@@ -92,7 +92,7 @@ npm install
 
 # Run the project on localhost
 ng serve
-
+```
 
 > Firebase settings are private and not required for local testing.
 
