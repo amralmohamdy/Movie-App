@@ -17,7 +17,7 @@ export default class Homepage {
   
   Movies = computed(() => this.svc.movieResource.value()?.results ?? []);
   totalPages = computed(() => this.svc.movieResource.value()?.total_pages ?? 1);
-  visibleCount = 10;
+  visibleCount = 5;
   
   visiblePages = computed(() => {
     const current = this.svc.page();

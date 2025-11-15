@@ -7,7 +7,8 @@
     "login": "Connexion",
     "wishlist": "Mes Favoris",
     "myaccount": "Mon Compte",
-    "logout": "Déconnexion"
+    "logout": "Déconnexion",
+    "logout_successfully": "Déconnexion réussie !"
   },
   "account": {
     "welcome": "Bienvenue,",
