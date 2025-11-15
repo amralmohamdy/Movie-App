@@ -7,7 +7,8 @@
     "login": "Login",
     "wishlist": "Wishlist",
     "myaccount": "My Account",
-    "logout": "Log Out"
+    "logout": "Log Out",
+    "logout_successfully": "Logged out successfully!"
   },
   "account": {
     "welcome": "Welcome,",
@@ -54,64 +55,58 @@
     "removed": "Removed from your wishlist.",
     "added": "Added to your wishlist!"
   },
-  "login":
-  {
-    "sign_in":"Sign in",
-    "email" : "Email",
-    "password" : "Password",
-    "remember_me":"Remember me",
-    "forgot" : "Forgot?",
-    "or" : "OR",
-    "dhac" :"Don't have an account?",
-    "sign_up" : "Sign Up"
+  "login": {
+    "sign_in": "Sign in",
+    "email": "Email",
+    "password": "Password",
+    "remember_me": "Remember me",
+    "forgot": "Forgot?",
+    "or": "OR",
+    "dhac": "Don't have an account?",
+    "sign_up": "Sign Up"
   },
-  "register" : 
-  {
-    "title" : "Register",
-    "agree":"I agree to the",
-    "terms" : "terms and conditions",
-    "ahac" : "Already have an account?",
-    "conditions":"This website is a demo and training project built for learning Angular only. It does not contain any real data, personal information, or functional services. All content is fictional and intended solely for educational purposes.",
-    "close":"Close"
+  "register": {
+    "title": "Register",
+    "agree": "I agree to the",
+    "terms": "terms and conditions",
+    "ahac": "Already have an account?",
+    "conditions": "This website is a demo and training project built for learning Angular only. It does not contain any real data, personal information, or functional services. All content is fictional and intended solely for educational purposes.",
+    "close": "Close"
   },
-  "newR":
-  {
-    "title":"New Releases",
-    "nof" : "No movies found."
+  "newR": {
+    "title": "New Releases",
+    "nof": "No movies found."
   },
-  "not_found":
-  {
-    "title":"Page Not Found",
-    "oops" : "Oops! The page you’re looking for doesn’t exist or was moved.",
-    "home":"🏠 Go Home",
-    "cr":"Movie App"
+  "not_found": {
+    "title": "Page Not Found",
+    "oops": "Oops! The page you’re looking for doesn’t exist or was moved.",
+    "home": "🏠 Go Home",
+    "cr": "Movie App"
   },
-  "search":
-  {
-    "library":"Library of +1M",
-    "mov":"Movies",
-    "desc" : "Your next cinematic adventure starts here. Search and find your masterpiece!",
-    "input":"Search for a movie...",
-    "btn":"Search",
-    "nof" : "No movies found. Try another search!",
-    "loading":"Loading...",
-    "lm":"Load More"
+  "search": {
+    "library": "Library of +1M",
+    "mov": "Movies",
+    "desc": "Your next cinematic adventure starts here. Search and find your masterpiece!",
+    "input": "Search for a movie...",
+    "btn": "Search",
+    "nof": "No movies found. Try another search!",
+    "loading": "Loading...",
+    "lm": "Load More"
   },
-  "wishlist": 
-  {
-    "title":"My Wishlist",
-    "desc":"Saved movies you want to watch later. Organize, play trailers, or remove items from your list.",
-    "empty" : "Your Wishlist Is Empty",
-    "desc_em" : "Start exploring and add your favorite movies to your wishlist to see them here later.",
-    "btm":"Browse Movies",
-    "summary":"Watchlist Summary",
-    "yh" : "You have",
-    "hv" : "items saved. Start watching or export your list.",
-    "pat":"Play All Trailers",
-    "clear":"Clear Watchlist",
-    "confirm":"Are you sure you want to remove all items from your wishlist? This action cannot be undone.",
-    "no":"No",
-    "yes":"Yes",
-    "removed":"Removed successfully"
+  "wishlist": {
+    "title": "My Wishlist",
+    "desc": "Saved movies you want to watch later. Organize, play trailers, or remove items from your list.",
+    "empty": "Your Wishlist Is Empty",
+    "desc_em": "Start exploring and add your favorite movies to your wishlist to see them here later.",
+    "btm": "Browse Movies",
+    "summary": "Watchlist Summary",
+    "yh": "You have",
+    "hv": "items saved. Start watching or export your list.",
+    "pat": "Play All Trailers",
+    "clear": "Clear Watchlist",
+    "confirm": "Are you sure you want to remove all items from your wishlist? This action cannot be undone.",
+    "no": "No",
+    "yes": "Yes",
+    "removed": "Removed successfully"
   }
 }
