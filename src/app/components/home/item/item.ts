@@ -5,6 +5,7 @@ import { RouterLink } from "@angular/router";
 import { WishlistResourceService } from '../../../shared/wishlist-resource-service';
 import { AuthService } from '../../../services/auth-service';
 import { TranslatePipe, TranslateService } from '@ngx-translate/core';
+import { ToastService } from '../../../shared/toast-service';
 
 @Component({
   selector: 'app-item',
@@ -13,13 +14,10 @@ import { TranslatePipe, TranslateService } from '@ngx-translate/core';
   styleUrl: './item.css',
 })
 export class Item {
+  toast = inject(ToastService);
   private translate = inject(TranslateService);
   WishlistResourceSvc = inject(WishlistResourceService);
   auth = inject(AuthService);
-  showToast = signal(false);
-  toastMessage = signal('');
-  toastType = signal<'success' | 'error' | 'info'>('info');
-  toastProgress = signal(0);
 
 
   @Input()
@@ -61,23 +59,6 @@ export class Item {
   }
 
   showToastMessage(message: string, type: 'success' | 'error' | 'info' = 'info', duration = 4000) {
-    this.toastMessage.set(message);
-    this.toastType.set(type);
-    this.showToast.set(true);
-    this.toastProgress.set(0);
-
-    const interval = 20; 
-    const step = interval / duration;
-
-    const timer = setInterval(() => {
-      const next = this.toastProgress() + step;
-      if (next >= 1) {
-        this.toastProgress.set(1);
-        this.showToast.set(false);
-        clearInterval(timer);
-      } else {
-        this.toastProgress.set(next);
-      }
-    }, interval);
+      this.toast.show(message, type, 4000);
   }
 }

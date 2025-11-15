@@ -6,6 +6,7 @@ import { Theme } from '../../shared/theme';
 import { WishlistResourceService } from '../../shared/wishlist-resource-service';
 import { AuthService } from '../../services/auth-service';
 import { TranslatePipe, TranslateService } from '@ngx-translate/core';
+import { ToastService } from '../../shared/toast-service';
 
 @Component({
   selector: 'app-header',
@@ -14,6 +15,7 @@ import { TranslatePipe, TranslateService } from '@ngx-translate/core';
   styleUrl: './header.css',
 })
 export class Header {
+  toast = inject(ToastService)
   translate = inject(TranslateService);
   auth = inject(AuthService);
   svc = inject(MoviesResources);
@@ -94,7 +96,10 @@ export class Header {
 
   logout() {
     this.auth.logout().then(() => {
-      this.router.navigate(['/login']);
+      this.toast.show(this.translate.instant('header.logout_successfully'), 'success', 2500);
+      setTimeout(() => {
+        this.router.navigate(['/login']);
+      }, 500);
     });
   }
 

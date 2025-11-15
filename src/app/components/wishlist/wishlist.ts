@@ -27,12 +27,6 @@ export default class Wishlist implements OnInit {
   ) { }
 
   ngOnInit() {
-    if (!this.auth.currentUser) {
-      this.router.navigate(['/login']);
-      return;
-    }
-
-    // تحميل أولي للـ wishlist
     this.wishlistResource.wishlistIdsResource.reload();
   }
 
